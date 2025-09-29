@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LosTribe - Combat System Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: #64b5f6;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(100, 181, 246, 0.5);
+        }
+
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .hero-panel, .monster-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #64b5f6;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .hero-panel {
+            border-color: #81c784;
+        }
+
+        .monster-panel {
+            border-color: #e57373;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: #bdbdbd;
+        }
+
+        .stat-value {
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .hero-stat { color: #81c784; }
+        .monster-stat { color: #e57373; }
+
+        .hand {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: rgba(100, 181, 246, 0.2);
+            border: 1px solid #64b5f6;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 120px;
+        }
+
+        .card:hover {
+            background: rgba(100, 181, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .card-cost {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ffb74d;
+            color: #000;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .combat-log {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #64b5f6;
+            border-radius: 8px;
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 2px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        button {
+            background: #64b5f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #42a5f5;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .monster-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .monster-item {
+            background: rgba(229, 115, 115, 0.1);
+            border: 1px solid #e57373;
+            border-radius: 5px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .monster-info {
+            flex-grow: 1;
+        }
+
+        .monster-hp {
+            color: #e57373;
+            font-weight: bold;
+        }
+
+        .monster-intent {
+            background: rgba(229, 115, 115, 0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        .status {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .victory {
+            color: #81c784;
+        }
+
+        .defeat {
+            color: #e57373;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚔️ LosTribe Combat System Demo</h1>
+
+        <div class="controls">
+            <button onclick="generateNewRun()">🎭 Generate New Run</button>
+            <button onclick="startCombat()" id="startBtn">⚔️ Start Combat</button>
+            <button onclick="endTurn()" id="endTurnBtn" disabled>⏭️ End Turn</button>
+        </div>
+
+        <div id="status" class="status">Generate a run to begin!</div>
+
+        <div class="game-area">
+            <div class="hero-panel">
+                <h2>👤 Hero</h2>
+                <div id="hero-info">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value hero-stat" id="hero-hp">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Energy</div>
+                            <div class="stat-value hero-stat" id="hero-energy">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Defense</div>
+                            <div class="stat-value hero-stat" id="hero-defense">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🎴 Hand</h3>
+                <div class="hand" id="hero-hand">
+                    <!-- Cards will be added here -->
+                </div>
+            </div>
+
+            <div class="monster-panel">
+                <h2>👹 Enemies</h2>
+                <div id="monster-list" class="monster-list">
+                    <!-- Monsters will be added here -->
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>📜 Combat Log</h3>
+            <div class="combat-log" id="combat-log">
+                <!-- Log entries will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { generateCompleteRun } from './src/backstage-generator.js';
+
+        // Global variables
+        let currentRunData = null;
+        let combatSystem = null;
+        let heroHand = [];
+
+        // DOM elements
+        const statusEl = document.getElementById('status');
+        const startBtn = document.getElementById('startBtn');
+        const endTurnBtn = document.getElementById('endTurnBtn');
+        const heroHpEl = document.getElementById('hero-hp');
+        const heroEnergyEl = document.getElementById('hero-energy');
+        const heroDefenseEl = document.getElementById('hero-defense');
+        const heroHandEl = document.getElementById('hero-hand');
+        const monsterListEl = document.getElementById('monster-list');
+        const combatLogEl = document.getElementById('combat-log');
+
+        // Initialize with some basic cards for demo
+        const DEMO_CARDS = Object.values(CARD_DEFINITIONS).slice(0, 5);
+
+        window.generateNewRun = async function() {
+            console.log('🎭 Generating new run...');
+            try {
+                currentRunData = await generateCompleteRun({
+                    totalFloors: 3,
+                    seed: Math.floor(Math.random() * 1000000)
+                });
+
+                // Get first battle room for demo
+                const battleRoom = currentRunData.dungeon.allRooms.find(room => room.type === 'battle');
+                if (battleRoom && battleRoom.monsters && battleRoom.monsters.length > 0) {
+                    statusEl.textContent = `Ready for combat in ${battleRoom.tarot} chamber!`;
+                    startBtn.disabled = false;
+                } else {
+                    statusEl.textContent = 'No battle rooms found in this run.';
+                }
+
+                updateDisplay();
+            } catch (error) {
+                console.error('Error generating run:', error);
+                statusEl.textContent = 'Error generating run. Check console.';
+            }
+        };
+
+        window.startCombat = function() {
+            if (!currentRunData) return;
+
+            const battleRoom = currentRunData.dungeon.allRooms.find(room => room.type === 'battle');
+            if (!battleRoom || !battleRoom.monsters || battleRoom.monsters.length === 0) {
+                statusEl.textContent = 'No monsters to fight!';
+                return;
+            }
+
+            // Create combat system
+            combatSystem = new CombatSystem(currentRunData.hero, battleRoom.monsters, battleRoom.tarot);
+            combatSystem.onCombatEnd = (result) => {
+                if (result === 'victory') {
+                    statusEl.textContent = 'Victory! Combat completed.';
+                    statusEl.className = 'status victory';
+                } else {
+                    statusEl.textContent = 'Defeat! Hero has fallen.';
+                    statusEl.className = 'status defeat';
+                }
+                startBtn.disabled = false;
+                endTurnBtn.disabled = true;
+            };
+
+            combatSystem.startCombat();
+            statusEl.textContent = 'Combat in progress...';
+            statusEl.className = 'status';
+            startBtn.disabled = true;
+            endTurnBtn.disabled = false;
+
+            // Give hero some starting cards
+            heroHand = [...DEMO_CARDS];
+            updateCombatDisplay();
+        };
+
+        window.endTurn = function() {
+            if (!combatSystem || !combatSystem.isActive) return;
+
+            // Monster turn is handled automatically in the combat system
+            updateCombatDisplay();
+        };
+
+        function updateDisplay() {
+            if (!currentRunData) return;
+
+            // Update hero info (basic display)
+            const hero = currentRunData.hero;
+            heroHpEl.textContent = `${hero.stats.hp}/${hero.maxStats.hp}`;
+            heroEnergyEl.textContent = `${hero.energy}/${hero.maxEnergy}`;
+            heroDefenseEl.textContent = hero.stats.def;
+        }
+
+        function updateCombatDisplay() {
+            if (!combatSystem) return;
+
+            const state = combatSystem.getCombatState();
+
+            // Update hero stats
+            heroHpEl.textContent = `${state.hero.hp}/${state.hero.maxHp}`;
+            heroEnergyEl.textContent = `${state.hero.energy}/${state.hero.maxEnergy}`;
+            heroDefenseEl.textContent = state.hero.defense;
+
+            // Update monster list
+            monsterListEl.innerHTML = '';
+            state.monsters.forEach(monster => {
+                const monsterEl = document.createElement('div');
+                monsterEl.className = 'monster-item';
+
+                monsterEl.innerHTML = `
+                    <div class="monster-info">
+                        <strong>${monster.name}</strong><br>
+                        <span class="monster-hp">HP: ${monster.hp}/${monster.maxHp}</span>
+                    </div>
+                    <div class="monster-intent">${monster.intent.action}</div>
+                `;
+
+                monsterListEl.appendChild(monsterEl);
+            });
+
+            // Update combat log
+            combatLogEl.innerHTML = '';
+            state.log.forEach(entry => {
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                logEntry.textContent = entry.message;
+                combatLogEl.appendChild(logEntry);
+            });
+
+            combatLogEl.scrollTop = combatLogEl.scrollHeight;
+
+            // Update hand
+            updateHandDisplay();
+
+            // Update turn indicator
+            endTurnBtn.disabled = state.currentTurn !== 'hero' || !state.isActive;
+        }
+
+        function updateHandDisplay() {
+            heroHandEl.innerHTML = '';
+
+            heroHand.forEach((card, index) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = `card ${combatSystem && combatSystem.hero.energy < card.cost ? 'disabled' : ''}`;
+                cardEl.innerHTML = `
+                    <div class="card-cost">${card.cost}</div>
+                    <strong>${card.name}</strong><br>
+                    <small>${card.description}</small><br>
+                    <small>Type: ${card.type}</small>
+                `;
+
+                if (combatSystem && combatSystem.isActive && combatSystem.turn === 'hero' && combatSystem.hero.energy >= card.cost) {
+                    cardEl.onclick = () => playCard(card, index);
+                }
+
+                heroHandEl.appendChild(cardEl);
+            });
+        }
+
+        function playCard(card, index) {
+            if (!combatSystem || !combatSystem.isActive) return;
+
+            const target = combatSystem.getRandomMonster(); // Simple targeting
+            const success = combatSystem.playCard(card, target);
+
+            if (success) {
+                // Remove card from hand (simple implementation)
+                heroHand.splice(index, 1);
+                updateCombatDisplay();
+            }
+        }
+
+        // Initialize
+        console.log('⚔️ Combat System Demo loaded');
+        console.log('🎭 Generate a run to begin testing combat!');
+    </script>
+</body>
+</html>

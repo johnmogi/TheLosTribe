@@ -1,0 +1,332 @@
+[
+  {
+    "id": "The Fool",
+    "traditional_name": "The Fool",
+    "connolly_name": "The Innocent",
+    "tone": "uplifting",
+    "narrative": "You stand at the beginning of life's great adventure, carrying nothing but trust and wonder. Every step forward opens new possibilities.",
+    "reflective_prompt": "What new beginning calls to your spirit?",
+    "gameplay": {
+      "combat_effect": { "type": "energy_boost", "value": 2, "description": "Begin combat with extra energy" },
+      "exploration_effect": { "type": "reveal_paths", "chance": 0.5, "description": "Hidden paths become visible" },
+      "run_effect": { "type": "unlock_potential", "description": "Opens possibilities for all future evolutions" }
+    },
+    "rarity": "common",
+    "element_affinity": ["spirit"]
+  },
+  {
+    "id": "The Magician",
+    "traditional_name": "The Magician",
+    "connolly_name": "The Channel",
+    "tone": "uplifting",
+    "narrative": "You are the conscious bridge between heaven and earth, transforming thought into reality through awakened will and focused intention.",
+    "reflective_prompt": "What power within you seeks expression?",
+    "gameplay": {
+      "combat_effect": { "type": "spell_amplify", "multiplier": 1.25, "description": "Spells deal 25% more damage" },
+      "exploration_effect": { "type": "mana_double", "description": "Mana crystals restore double energy" },
+      "run_effect": { "type": "creative_awakening", "description": "Enables advanced spell weaving" }
+    },
+    "rarity": "common",
+    "element_affinity": ["fire", "spirit"]
+  },
+  {
+    "id": "The High Priestess",
+    "traditional_name": "The High Priestess",
+    "connolly_name": "The Oracle",
+    "tone": "uplifting",
+    "narrative": "Behind the veil of ordinary perception lies the temple of inner wisdom. You are the guardian of mysteries that whisper eternal truths.",
+    "reflective_prompt": "What inner knowing guides you now?",
+    "gameplay": {
+      "combat_effect": { "type": "intent_reveal", "description": "See enemy intentions before they act" },
+      "exploration_effect": { "type": "room_scry", "description": "Preview room contents before entering" },
+      "run_effect": { "type": "intuition_enhance", "description": "Enhances intuitive decision making" }
+    },
+    "rarity": "common",
+    "element_affinity": ["water", "spirit"]
+  },
+  {
+    "id": "The Empress",
+    "traditional_name": "The Empress",
+    "connolly_name": "The Nurturer",
+    "tone": "uplifting",
+    "narrative": "You embody creation's loving embrace, nurturing growth in all beings and celebrating the abundance that flows from aligned hearts.",
+    "reflective_prompt": "What growth do you wish to nurture?",
+    "gameplay": {
+      "combat_effect": { "type": "heal_amplify", "multiplier": 1.5, "description": "Healing spells are 50% more effective" },
+      "exploration_effect": { "type": "rest_double", "description": "Rest areas provide double healing" },
+      "run_effect": { "type": "emotional_mastery", "description": "Strengthens healing abilities" }
+    },
+    "rarity": "common",
+    "element_affinity": ["earth", "water"]
+  },
+  {
+    "id": "The Emperor",
+    "traditional_name": "The Emperor",
+    "connolly_name": "The Guardian",
+    "tone": "uplifting",
+    "narrative": "You are the wise protector who creates safe space for growth, ruling with compassion and understanding that true strength serves the greater good.",
+    "reflective_prompt": "What boundaries protect your growth?",
+    "gameplay": {
+      "combat_effect": { "type": "damage_defense_boost", "damage": 1.3, "defense": 20, "description": "30% more damage, +20 defense" },
+      "exploration_effect": { "type": "boss_reduce", "description": "Boss encounters are less dangerous" },
+      "run_effect": { "type": "leadership_develop", "description": "Develops leadership qualities" }
+    },
+    "rarity": "common",
+    "element_affinity": ["earth", "fire"]
+  },
+  {
+    "id": "The Hierophant",
+    "traditional_name": "The Hierophant",
+    "connolly_name": "The Teacher",
+    "tone": "uplifting",
+    "narrative": "You are the bridge between ancient wisdom and emerging consciousness, sharing knowledge not through dictate but through living example.",
+    "reflective_prompt": "What wisdom do you carry to share?",
+    "gameplay": {
+      "combat_effect": { "type": "ally_boost", "multiplier": 1.15, "description": "Allies gain 15% to all stats" },
+      "exploration_effect": { "type": "knowledge_share", "description": "NPCs share valuable information" },
+      "run_effect": { "type": "mentorship_unlock", "description": "Unlocks mentorship abilities" }
+    },
+    "rarity": "uncommon",
+    "element_affinity": ["spirit", "air"]
+  },
+  {
+    "id": "The Lovers",
+    "traditional_name": "The Lovers",
+    "connolly_name": "The Harmonizers",
+    "tone": "uplifting",
+    "narrative": "You are the sacred union of opposites, recognizing that apparent division dissolves in the alchemy of love and understanding.",
+    "reflective_prompt": "What seeming opposites seek harmony?",
+    "gameplay": {
+      "combat_effect": { "type": "combo_enable", "description": "Partner cards available for combination attacks" },
+      "exploration_effect": { "type": "relationship_events", "description": "Companions may join your journey" },
+      "run_effect": { "type": "balance_achieve", "description": "Achieves inner balance" }
+    },
+    "rarity": "uncommon",
+    "element_affinity": ["water", "fire"]
+  },
+  {
+    "id": "The Chariot",
+    "traditional_name": "The Chariot",
+    "connolly_name": "The Victor",
+    "tone": "uplifting",
+    "narrative": "You are the focused determination that moves mountains, aligning your entire being with your soul's highest calling.",
+    "reflective_prompt": "What purpose drives you forward?",
+    "gameplay": {
+      "combat_effect": { "type": "speed_strike", "speed": 1.5, "description": "50% speed increase, first strike" },
+      "exploration_effect": { "type": "movement_fast", "description": "Faster dungeon movement" },
+      "run_effect": { "type": "determination_build", "description": "Overcomes inner obstacles" }
+    },
+    "rarity": "uncommon",
+    "element_affinity": ["fire", "air"]
+  },
+  {
+    "id": "Strength",
+    "traditional_name": "Strength",
+    "connolly_name": "The Gentle Power",
+    "tone": "uplifting",
+    "narrative": "You are the quiet power of compassion, transforming potential conflict through patience and understanding.",
+    "reflective_prompt": "Where can gentleness create strength?",
+    "gameplay": {
+      "combat_effect": { "type": "tame_convert", "description": "Convert enemies to temporary allies" },
+      "exploration_effect": { "type": "peace_areas", "description": "Wild areas become peaceful" },
+      "run_effect": { "type": "compassion_master", "description": "Transforms aggression into compassion" }
+    },
+    "rarity": "uncommon",
+    "element_affinity": ["earth", "spirit"]
+  },
+  {
+    "id": "The Hermit",
+    "traditional_name": "The Hermit",
+    "connolly_name": "The Inner Light",
+    "tone": "uplifting",
+    "narrative": "You are the seeker who finds universal truths in solitude, discovering that retreat is the necessary journey toward wisdom.",
+    "reflective_prompt": "What wisdom awaits in stillness?",
+    "gameplay": {
+      "combat_effect": { "type": "evade_accuracy", "description": "Enemies have reduced accuracy" },
+      "exploration_effect": { "type": "hidden_reveal", "description": "Hidden rooms and chambers revealed" },
+      "run_effect": { "type": "wisdom_deepen", "description": "Unlocks contemplative abilities" }
+    },
+    "rarity": "uncommon",
+    "element_affinity": ["spirit"]
+  },
+  {
+    "id": "Wheel of Fortune",
+    "traditional_name": "Wheel of Fortune",
+    "connolly_name": "The Eternal Cycle",
+    "tone": "uplifting",
+    "narrative": "You are part of the great cosmic dance where every ending becomes a beginning, every challenge an opportunity for growth.",
+    "reflective_prompt": "What cycle completes in your life?",
+    "gameplay": {
+      "combat_effect": { "type": "random_benefits", "description": "Random beneficial effects each turn" },
+      "exploration_effect": { "type": "fortune_events", "description": "Positive random events occur" },
+      "run_effect": { "type": "timing_understand", "description": "Works with universal flow" }
+    },
+    "rarity": "rare",
+    "element_affinity": ["spirit", "air"]
+  },
+  {
+    "id": "Justice",
+    "traditional_name": "Justice",
+    "connolly_name": "The Balanced Heart",
+    "tone": "uplifting",
+    "narrative": "You are the perfect balance achieved through compassion, understanding that true justice flows from interconnected hearts.",
+    "reflective_prompt": "What balance seeks restoration?",
+    "gameplay": {
+      "combat_effect": { "type": "accuracy_counter", "description": "Perfect accuracy and counter-attacks" },
+      "exploration_effect": { "type": "truth_reveal", "description": "Merchants offer fair prices" },
+      "run_effect": { "type": "discernment_develop", "description": "Balances all aspects of self" }
+    },
+    "rarity": "rare",
+    "element_affinity": ["air", "spirit"]
+  },
+  {
+    "id": "The Hanged Man",
+    "traditional_name": "The Hanged Man",
+    "connolly_name": "The Willing Sacrifice",
+    "tone": "uplifting",
+    "narrative": "You choose surrender as the ultimate act of trust, discovering that true freedom comes from graceful release.",
+    "reflective_prompt": "What can you release with love?",
+    "gameplay": {
+      "combat_effect": { "type": "sacrifice_power", "description": "Sacrifice HP for powerful effects" },
+      "exploration_effect": { "type": "sacrifice_reward", "description": "Sacrifice rooms offer great rewards" },
+      "run_effect": { "type": "detachment_master", "description": "Transforms through surrender" }
+    },
+    "rarity": "rare",
+    "element_affinity": ["water", "spirit"]
+  },
+  {
+    "id": "Death",
+    "traditional_name": "Death",
+    "connolly_name": "The Transition",
+    "tone": "uplifting",
+    "narrative": "You are in beautiful transformation, where what no longer serves gracefully falls away to make space for rebirth.",
+    "reflective_prompt": "What transformation awaits?",
+    "gameplay": {
+      "combat_effect": { "type": "evolve_trigger", "description": "Transform defeated enemies into spirits" },
+      "exploration_effect": { "type": "transmute_items", "description": "Old items can be transmuted to better ones" },
+      "run_effect": { "type": "milestone_transform", "description": "Major transformation milestone" }
+    },
+    "rarity": "rare",
+    "element_affinity": ["water", "earth"]
+  },
+  {
+    "id": "Temperance",
+    "traditional_name": "Temperance",
+    "connolly_name": "The Alchemist",
+    "tone": "uplifting",
+    "narrative": "You are the sacred alchemist blending opposites into harmony, learning that transformation happens through gentle balance.",
+    "reflective_prompt": "What needs alchemical balance?",
+    "gameplay": {
+      "combat_effect": { "type": "combine_effects", "description": "Combine card effects for enhanced power" },
+      "exploration_effect": { "type": "alchemy_labs", "description": "Items can be combined for enhancement" },
+      "run_effect": { "type": "alchemy_achieve", "description": "Balances all elements within" }
+    },
+    "rarity": "rare",
+    "element_affinity": ["water", "fire"]
+  },
+  {
+    "id": "The Devil",
+    "traditional_name": "The Devil",
+    "connolly_name": "Chains Within",
+    "tone": "uplifting",
+    "narrative": "You are breaking free from self-imposed limitations, recognizing that true liberation comes from within.",
+    "reflective_prompt": "What chains can you dissolve?",
+    "gameplay": {
+      "combat_effect": { "type": "freedom_attacks", "description": "Break enemy restrictions and chains" },
+      "exploration_effect": { "type": "curse_purify", "description": "Cursed items can be purified" },
+      "run_effect": { "type": "trauma_liberate", "description": "Liberates from past traumas" }
+    },
+    "rarity": "rare",
+    "element_affinity": ["fire", "earth"]
+  },
+  {
+    "id": "The Tower",
+    "traditional_name": "The Tower",
+    "connolly_name": "The Awakening",
+    "tone": "uplifting",
+    "narrative": "You are experiencing beautiful destruction that precedes rebirth, as outdated structures make way for authentic growth.",
+    "reflective_prompt": "What structure needs rebuilding?",
+    "gameplay": {
+      "combat_effect": { "type": "armor_break", "description": "Breakthrough attacks ignore armor" },
+      "exploration_effect": { "type": "collapse_reveal", "description": "Collapsing rooms reveal treasures" },
+      "run_effect": { "type": "belief_break", "description": "Breaks through limiting beliefs" }
+    },
+    "rarity": "epic",
+    "element_affinity": ["fire", "air"]
+  },
+  {
+    "id": "The Star",
+    "traditional_name": "The Star",
+    "connolly_name": "The Divine Inspiration",
+    "tone": "uplifting",
+    "narrative": "You are the guiding light that illuminates the path, reminding all beings of their divine origin and infinite potential.",
+    "reflective_prompt": "What light guides your way?",
+    "gameplay": {
+      "combat_effect": { "type": "hope_buffs", "description": "Inspire allies with hope and light" },
+      "exploration_effect": { "type": "star_guidance", "description": "Star rooms provide direction" },
+      "run_effect": { "type": "inspiration_connect", "description": "Illuminates true purpose" }
+    },
+    "rarity": "epic",
+    "element_affinity": ["spirit", "water"]
+  },
+  {
+    "id": "The Moon",
+    "traditional_name": "The Moon",
+    "connolly_name": "The Dreamweaver",
+    "tone": "uplifting",
+    "narrative": "You are navigating the luminous waters of subconscious wisdom, embracing the birthplace of intuition and creativity.",
+    "reflective_prompt": "What dreams seek expression?",
+    "gameplay": {
+      "combat_effect": { "type": "illusion_mind", "description": "Illusion and mind-affecting abilities" },
+      "exploration_effect": { "type": "dream_visions", "description": "Dream rooms reveal hidden meanings" },
+      "run_effect": { "type": "subconscious_master", "description": "Unlocks dream work abilities" }
+    },
+    "rarity": "epic",
+    "element_affinity": ["water", "spirit"]
+  },
+  {
+    "id": "The Sun",
+    "traditional_name": "The Sun",
+    "connolly_name": "The Radiant One",
+    "tone": "uplifting",
+    "narrative": "You are the radiant joy that warms all with unconditional love, dissolving shadows and celebrating inherent worthiness.",
+    "reflective_prompt": "What joy illuminates your path?",
+    "gameplay": {
+      "combat_effect": { "type": "radiant_burn", "description": "Radiant damage burns enemies" },
+      "exploration_effect": { "type": "sun_illuminate", "description": "Dark areas become illuminated" },
+      "run_effect": { "type": "enlightenment_achieve", "description": "Radiates love and joy" }
+    },
+    "rarity": "epic",
+    "element_affinity": ["fire", "spirit"]
+  },
+  {
+    "id": "Judgement",
+    "traditional_name": "Judgement",
+    "connolly_name": "The Soul's Resurrection",
+    "tone": "uplifting",
+    "narrative": "You are hearing the loving call to step into your authentic purpose, awakening to the magnificent being you were always meant to become.",
+    "reflective_prompt": "What purpose calls your name?",
+    "gameplay": {
+      "combat_effect": { "type": "resurrection_evolve", "description": "Resurrection and transformative attacks" },
+      "exploration_effect": { "type": "awakening_insights", "description": "Profound insights in awakening rooms" },
+      "run_effect": { "type": "calling_discover", "description": "Discovers true calling" }
+    },
+    "rarity": "legendary",
+    "element_affinity": ["spirit", "fire"]
+  },
+  {
+    "id": "The World",
+    "traditional_name": "The World",
+    "connolly_name": "The Cosmic Dance",
+    "tone": "uplifting",
+    "narrative": "You are the dancer in perfect harmony with the cosmos, where individual consciousness merges with universal awareness in celebration.",
+    "reflective_prompt": "What unity calls you home?",
+    "gameplay": {
+      "combat_effect": { "type": "unity_cosmic", "description": "Unity with all beings, cosmic damage" },
+      "exploration_effect": { "type": "world_connect", "description": "All areas become connected" },
+      "run_effect": { "type": "integration_achieve", "description": "Achieves complete integration" }
+    },
+    "rarity": "legendary",
+    "element_affinity": ["spirit"]
+  }
+]
