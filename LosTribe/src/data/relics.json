@@ -1,0 +1,116 @@
+[
+  {
+    "id": "r_fire_crystal",
+    "name": "Fire Crystal",
+    "rarity": "uncommon",
+    "effect": { "type": "elemental_damage", "element": "fire", "value": 3 }
+  },
+  {
+    "id": "r_water_orb",
+    "name": "Water Orb",
+    "rarity": "rare",
+    "effect": { "type": "healing", "value": 5, "cooldown": 3 }
+  },
+  {
+    "id": "r_earth_heart",
+    "name": "Earth Heart",
+    "rarity": "epic",
+    "effect": { "type": "defense_boost", "value": 4, "duration": 5 }
+  },
+  {
+    "id": "r_wight_essence",
+    "name": "Wight Essence",
+    "rarity": "rare",
+    "effect": { "type": "on_kill_spawn_skeleton", "chance": 0.25 }
+  },
+  {
+    "id": "r_hellfire_core",
+    "name": "Hellfire Core",
+    "rarity": "epic",
+    "effect": { "type": "fire_aura", "value": 5, "radius": 2 }
+  },
+  {
+    "id": "r_ice_soul",
+    "name": "Ice Soul",
+    "rarity": "rare",
+    "effect": { "type": "freeze_aura", "value": 2, "radius": 1 }
+  },
+  {
+    "id": "r_lava_heart",
+    "name": "Lava Heart",
+    "rarity": "uncommon",
+    "effect": { "type": "fire_resistance", "value": 10 }
+  },
+  {
+    "id": "r_deep_pearl",
+    "name": "Deep Pearl",
+    "rarity": "rare",
+    "effect": { "type": "water_breathing", "duration": 10 }
+  },
+  {
+    "id": "r_storm_feather",
+    "name": "Storm Feather",
+    "rarity": "uncommon",
+    "effect": { "type": "lightning_resistance", "value": 15 }
+  },
+  {
+    "id": "r_crystal_core",
+    "name": "Crystal Core",
+    "rarity": "epic",
+    "effect": { "type": "magic_amplification", "value": 1.5 }
+  },
+  {
+    "id": "r_thunder_plume",
+    "name": "Thunder Plume",
+    "rarity": "rare",
+    "effect": { "type": "chain_lightning", "value": 8, "chance": 0.3 }
+  },
+  {
+    "id": "r_abyssal_pearl",
+    "name": "Abyssal Pearl",
+    "rarity": "epic",
+    "effect": { "type": "pressure_resistance", "value": 20 }
+  },
+  {
+    "id": "r_phoenix_ash",
+    "name": "Phoenix Ash",
+    "rarity": "legendary",
+    "effect": { "type": "rebirth", "value": 0.5, "cooldown": 10 }
+  },
+  {
+    "id": "r_mountain_heart",
+    "name": "Mountain Heart",
+    "rarity": "epic",
+    "effect": { "type": "earthquake_immunity", "duration": 8 }
+  },
+  {
+    "id": "r_sky_essence",
+    "name": "Sky Essence",
+    "rarity": "epic",
+    "effect": { "type": "flight", "duration": 5, "cooldown": 8 }
+  },
+  {
+    "id": "r_tempest_orb",
+    "name": "Tempest Orb",
+    "rarity": "epic",
+    "effect": { "type": "wind_wall", "value": 3, "duration": 4 }
+  },
+  {
+    "id": "r_kraken_ink",
+    "name": "Kraken Ink",
+    "rarity": "rare",
+    "effect": { "type": "ink_cloud", "value": 3, "duration": 2 }
+  },
+  {
+    "id": "r_ancient_bark",
+    "name": "Ancient Bark",
+    "rarity": "epic",
+    "effect": { "type": "regeneration", "value": 3, "duration": 6 }
+  },
+  {
+    "id": "r_volcanic_core",
+    "name": "Volcanic Core",
+    "rarity": "legendary",
+    "effect": { "type": "lava_immunity", "duration": 10 }
+  }
+]

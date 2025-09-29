@@ -1,0 +1,202 @@
+[
+  {
+    "id": "r_entrance_hall",
+    "type": "battle",
+    "level": 1,
+    "monsters": [ { "id": "m_fire_imp", "count": 2 } ],
+    "traps": [],
+    "treasure": "loot_small",
+    "tarot": "The Fool",
+    "description": "The entrance to the dungeon, dimly lit by flickering torches"
+  },
+  {
+    "id": "r_flame_chamber",
+    "type": "battle",
+    "level": 2,
+    "monsters": [ { "id": "m_fire_imp", "count": 3 }, { "id": "m_lava_beast", "count": 1 } ],
+    "traps": ["t_fire_pit"],
+    "treasure": "loot_medium",
+    "tarot": "The Tower",
+    "description": "A chamber filled with lava pools and intense heat"
+  },
+  {
+    "id": "r_earth_sanctum",
+    "type": "battle",
+    "level": 3,
+    "monsters": [ { "id": "m_stone_golem", "count": 1 }, { "id": "m_earth_titan", "count": 1 } ],
+    "traps": ["t_earthquake"],
+    "treasure": "loot_large",
+    "tarot": "The Hermit",
+    "description": "Ancient stone chambers with rumbling earth energy"
+  },
+  {
+    "id": "r_wind_tunnel",
+    "type": "battle",
+    "level": 2,
+    "monsters": [ { "id": "m_wind_sprite", "count": 4 }, { "id": "m_storm_harpy", "count": 1 } ],
+    "traps": ["t_whirlwind"],
+    "treasure": "loot_medium",
+    "tarot": "The Magician",
+    "description": "Narrow tunnels with howling winds and floating platforms"
+  },
+  {
+    "id": "r_water_cavern",
+    "type": "battle",
+    "level": 3,
+    "monsters": [ { "id": "m_water_elemental", "count": 2 }, { "id": "m_abyssal_serpent", "count": 1 } ],
+    "traps": ["t_flood"],
+    "treasure": "loot_large",
+    "tarot": "The Lovers",
+    "description": "Submerged caverns with crystal-clear pools and underwater passages"
+  },
+  {
+    "id": "r_treasure_vault",
+    "type": "treasure",
+    "level": 4,
+    "monsters": [],
+    "traps": ["t_spike_pit", "t_poison_dart"],
+    "treasure": "loot_epic",
+    "tarot": "The Wheel of Fortune",
+    "description": "A heavily guarded vault filled with priceless treasures"
+  },
+  {
+    "id": "r_rest_shrine",
+    "type": "rest",
+    "level": 2,
+    "monsters": [],
+    "traps": [],
+    "treasure": "loot_healing",
+    "tarot": "The Hermit",
+    "description": "A peaceful shrine where weary travelers can recover"
+  },
+  {
+    "id": "r_boss_lair",
+    "type": "boss",
+    "level": 8,
+    "monsters": [ { "id": "m_volcano_lord", "count": 1 } ],
+    "traps": ["t_lava_flow"],
+    "treasure": "loot_legendary",
+    "tarot": "Death",
+    "description": "The final chamber where the ultimate challenge awaits"
+  },
+  {
+    "id": "r_trap_corridor",
+    "type": "trap",
+    "level": 2,
+    "monsters": [],
+    "traps": ["t_spike_floor", "t_arrow_trap", "t_falling_rocks"],
+    "treasure": "loot_small",
+    "tarot": "Justice",
+    "description": "A corridor lined with deadly mechanical traps"
+  },
+  {
+    "id": "r_merchant_cove",
+    "type": "merchant",
+    "level": 3,
+    "monsters": [],
+    "traps": [],
+    "treasure": "shop_basic",
+    "tarot": "The Magician",
+    "description": "A hidden cove where traveling merchants offer their wares"
+  },
+  {
+    "id": "r_crystal_grove",
+    "type": "event",
+    "level": 4,
+    "monsters": [],
+    "traps": [],
+    "treasure": "event_crystal",
+    "tarot": "The Lovers",
+    "description": "A grove of glowing crystals that pulse with magical energy"
+  },
+  {
+    "id": "r_ancient_library",
+    "type": "event",
+    "level": 3,
+    "monsters": [],
+    "traps": ["t_book_trap"],
+    "treasure": "event_lore",
+    "tarot": "The Hermit",
+    "description": "A vast library filled with ancient tomes and forgotten knowledge"
+  },
+  {
+    "id": "r_volcanic_forge",
+    "type": "battle",
+    "level": 5,
+    "monsters": [ { "id": "m_flame_demon", "count": 2 }, { "id": "m_lava_beast", "count": 1 } ],
+    "traps": ["t_lava_pool"],
+    "treasure": "loot_forge",
+    "tarot": "The Tower",
+    "description": "A blazing forge where weapons are tempered in eternal flames"
+  },
+  {
+    "id": "r_ice_caverns",
+    "type": "battle",
+    "level": 4,
+    "monsters": [ { "id": "m_ice_wraith", "count": 2 }, { "id": "m_deep_sea_lurker", "count": 1 } ],
+    "traps": ["t_ice_patch"],
+    "treasure": "loot_ice",
+    "tarot": "Justice",
+    "description": "Frozen caverns where the cold bites deeper than any blade"
+  },
+  {
+    "id": "r_storm_peak",
+    "type": "battle",
+    "level": 6,
+    "monsters": [ { "id": "m_thunder_bird", "count": 2 }, { "id": "m_tempest_djinn", "count": 1 } ],
+    "traps": ["t_lightning_rod"],
+    "treasure": "loot_storm",
+    "tarot": "The Wheel of Fortune",
+    "description": "The highest peak where storms rage eternally"
+  },
+  {
+    "id": "r_earth_temple",
+    "type": "event",
+    "level": 5,
+    "monsters": [],
+    "traps": [],
+    "treasure": "event_earth",
+    "tarot": "Strength",
+    "description": "A sacred temple dedicated to the earth and its ancient powers"
+  },
+  {
+    "id": "r_sky_temple",
+    "type": "event",
+    "level": 5,
+    "monsters": [],
+    "traps": [],
+    "treasure": "event_sky",
+    "tarot": "The Chariot",
+    "description": "A temple floating in the clouds, accessible only to the worthy"
+  },
+  {
+    "id": "r_underwater_temple",
+    "type": "event",
+    "level": 5,
+    "monsters": [],
+    "traps": ["t_water_pressure"],
+    "treasure": "event_water",
+    "tarot": "The Lovers",
+    "description": "A submerged temple holding secrets of the deep"
+  },
+  {
+    "id": "r_fire_temple",
+    "type": "event",
+    "level": 5,
+    "monsters": [],
+    "traps": ["t_flame_burst"],
+    "treasure": "event_fire",
+    "tarot": "The Magician",
+    "description": "A temple of eternal flame where fire dances with magic"
+  },
+  {
+    "id": "r_final_sanctum",
+    "type": "boss",
+    "level": 10,
+    "monsters": [ { "id": "m_phoenix_guardian", "count": 1 } ],
+    "traps": ["t_phoenix_flame"],
+    "treasure": "loot_phoenix",
+    "tarot": "Death",
+    "description": "The ultimate sanctum where rebirth and destruction meet"
+  }
+]

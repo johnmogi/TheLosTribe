@@ -1,0 +1,222 @@
+[
+  {
+    "id": "t_spike_pit",
+    "name": "Spike Pit",
+    "element": "earth",
+    "level": 1,
+    "type": "physical",
+    "damage": { "min": 8, "max": 15 },
+    "save": { "dice": "earth", "threshold": 2 },
+    "tarot": "Justice",
+    "description": "A pit filled with sharpened spikes"
+  },
+  {
+    "id": "t_fire_pit",
+    "name": "Fire Pit",
+    "element": "fire",
+    "level": 2,
+    "type": "elemental",
+    "damage": { "min": 10, "max": 18 },
+    "save": { "dice": "fire", "threshold": 2 },
+    "tarot": "The Tower",
+    "description": "A pit of eternal flames"
+  },
+  {
+    "id": "t_whirlwind",
+    "name": "Whirlwind",
+    "element": "air",
+    "level": 2,
+    "type": "elemental",
+    "damage": { "min": 6, "max": 12 },
+    "save": { "dice": "air", "threshold": 3 },
+    "tarot": "The Wheel of Fortune",
+    "description": "A raging whirlwind that tosses victims around"
+  },
+  {
+    "id": "t_flood",
+    "name": "Flood Chamber",
+    "element": "water",
+    "level": 3,
+    "type": "elemental",
+    "damage": { "min": 12, "max": 20 },
+    "save": { "dice": "water", "threshold": 2 },
+    "tarot": "The Lovers",
+    "description": "A chamber that rapidly fills with water"
+  },
+  {
+    "id": "t_earthquake",
+    "name": "Earthquake Floor",
+    "element": "earth",
+    "level": 3,
+    "type": "elemental",
+    "damage": { "min": 15, "max": 25 },
+    "save": { "dice": "earth", "threshold": 3 },
+    "tarot": "The Tower",
+    "description": "The ground shakes violently, causing structural collapse"
+  },
+  {
+    "id": "t_poison_dart",
+    "name": "Poison Dart Trap",
+    "element": "earth",
+    "level": 1,
+    "type": "physical",
+    "damage": { "min": 5, "max": 10 },
+    "save": { "dice": "air", "threshold": 2 },
+    "tarot": "Justice",
+    "description": "Pressure-triggered darts coated in poison"
+  },
+  {
+    "id": "t_arrow_trap",
+    "name": "Arrow Trap",
+    "element": "air",
+    "level": 2,
+    "type": "physical",
+    "damage": { "min": 8, "max": 14 },
+    "save": { "dice": "air", "threshold": 3 },
+    "tarot": "The Chariot",
+    "description": "Walls that shoot arrows when triggered"
+  },
+  {
+    "id": "t_falling_rocks",
+    "name": "Falling Rocks",
+    "element": "earth",
+    "level": 2,
+    "type": "physical",
+    "damage": { "min": 12, "max": 18 },
+    "save": { "dice": "earth", "threshold": 2 },
+    "tarot": "The Tower",
+    "description": "Loose rocks that fall from the ceiling"
+  },
+  {
+    "id": "t_ice_patch",
+    "name": "Ice Patch",
+    "element": "water",
+    "level": 2,
+    "type": "elemental",
+    "damage": { "min": 6, "max": 12 },
+    "save": { "dice": "water", "threshold": 2 },
+    "tarot": "The Hermit",
+    "description": "Slippery ice that causes falls and cold damage"
+  },
+  {
+    "id": "t_lightning_rod",
+    "name": "Lightning Rod",
+    "element": "air",
+    "level": 3,
+    "type": "elemental",
+    "damage": { "min": 18, "max": 28 },
+    "save": { "dice": "air", "threshold": 3 },
+    "tarot": "The Magician",
+    "description": "Metal rods that attract and channel lightning"
+  },
+  {
+    "id": "t_lava_flow",
+    "name": "Lava Flow",
+    "element": "fire",
+    "level": 4,
+    "type": "elemental",
+    "damage": { "min": 20, "max": 35 },
+    "save": { "dice": "fire", "threshold": 3 },
+    "tarot": "Death",
+    "description": "Rivers of molten lava that flow across the floor"
+  },
+  {
+    "id": "t_book_trap",
+    "name": "Cursed Book",
+    "element": "earth",
+    "level": 3,
+    "type": "physical",
+    "damage": { "min": 10, "max": 20 },
+    "save": { "dice": "earth", "threshold": 2 },
+    "tarot": "The Hermit",
+    "description": "A book that releases poisonous spores when opened"
+  },
+  {
+    "id": "t_water_pressure",
+    "name": "Water Pressure",
+    "element": "water",
+    "level": 4,
+    "type": "elemental",
+    "damage": { "min": 25, "max": 40 },
+    "save": { "dice": "water", "threshold": 3 },
+    "tarot": "The Lovers",
+    "description": "Intense water pressure that crushes everything in its path"
+  },
+  {
+    "id": "t_flame_burst",
+    "name": "Flame Burst",
+    "element": "fire",
+    "level": 3,
+    "type": "elemental",
+    "damage": { "min": 14, "max": 24 },
+    "save": { "dice": "fire", "threshold": 2 },
+    "tarot": "The Magician",
+    "description": "Explosive bursts of flame from hidden vents"
+  },
+  {
+    "id": "t_spore_gas",
+    "name": "Spore Gas",
+    "element": "earth",
+    "level": 2,
+    "type": "physical",
+    "damage": { "min": 8, "max": 16 },
+    "save": { "dice": "earth", "threshold": 2 },
+    "tarot": "The Fool",
+    "description": "Poisonous spores released into the air"
+  },
+  {
+    "id": "t_lava_pool",
+    "name": "Lava Pool",
+    "element": "fire",
+    "level": 5,
+    "type": "elemental",
+    "damage": { "min": 30, "max": 50 },
+    "save": { "dice": "fire", "threshold": 3 },
+    "tarot": "The Tower",
+    "description": "A large pool of bubbling lava"
+  },
+  {
+    "id": "t_ice_spikes",
+    "name": "Ice Spikes",
+    "element": "water",
+    "level": 3,
+    "type": "elemental",
+    "damage": { "min": 16, "max": 26 },
+    "save": { "dice": "water", "threshold": 3 },
+    "tarot": "Justice",
+    "description": "Sharp ice formations that erupt from the ground"
+  },
+  {
+    "id": "t_wind_blast",
+    "name": "Wind Blast",
+    "element": "air",
+    "level": 4,
+    "type": "elemental",
+    "damage": { "min": 22, "max": 32 },
+    "save": { "dice": "air", "threshold": 3 },
+    "tarot": "The Chariot",
+    "description": "Powerful gusts of wind that hurl victims into walls"
+  },
+  {
+    "id": "t_rock_slide",
+    "name": "Rock Slide",
+    "element": "earth",
+    "level": 4,
+    "type": "physical",
+    "damage": { "min": 20, "max": 35 },
+    "save": { "dice": "earth", "threshold": 3 },
+    "tarot": "The Tower",
+    "description": "A cascade of rocks falling from above"
+  },
+  {
+    "id": "t_phoenix_flame",
+    "name": "Phoenix Flame",
+    "element": "fire",
+    "level": 7,
+    "type": "elemental",
+    "damage": { "min": 40, "max": 60 },
+    "save": { "dice": "fire", "threshold": 3 },
+    "tarot": "Death",
+    "description": "Eternal flames that burn with the fury of a phoenix"
+  }
+]

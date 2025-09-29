@@ -1,0 +1,47 @@
+HERO GENERATOR BLUEPRINT
+
+Base Archetypes:
+- Warrior: High HP and Defense | Primary: Melee combat
+- Mage: High Magic Power | Primary: Spell casting
+- Rogue: High Speed and Evasion | Primary: Stealth and precision
+- Priest: Healing and Support | Primary: Restoration and buffs
+
+Tarot Destiny Cards:
+The Magician: Bonus elemental dice | Enhanced spell casting
+Death: Evolves when defeated | Comes back stronger
+The Fool: Random ability each turn | Unpredictable effects
+The Hermit: High defense, slow attacks | Wisdom and patience
+Wheel of Fortune: Luck-based abilities | Random rewards/punishments
+
+Elemental Affinities:
+Fire: Bonus burn damage | Better with fire dice
+Water: Healing amplification | Better with water dice
+Air: Speed and initiative | Better with air dice
+Earth: Defense and stability | Better with earth dice
+
+Hero Templates:
+1. Liora Moonleaf | Elf Ranger | HP:80 | ATK:12 | DEF:6 | SPD:8 | Element:Air | Tarot:The Magician
+2. Doran Faithful | Human Paladin | HP:100 | ATK:10 | DEF:8 | SPD:4 | Element:Earth | Tarot:The Hermit
+3. Kael Broken | Tiefling Warlock | HP:60 | ATK:15 | DEF:4 | SPD:6 | Element:Fire | Tarot:Death
+4. Mira Stoneshield | Dwarf Fighter | HP:120 | ATK:14 | DEF:10 | SPD:3 | Element:Earth | Tarot:Wheel of Fortune
+5. Niko Quick | Halfling Rogue | HP:70 | ATK:11 | DEF:5 | SPD:12 | Element:Air | Tarot:The Fool
+
+Starting Equipment:
+- Warriors: Sword, Shield, Armor
+- Mages: Staff, Spellbook, Robes
+- Rogues: Daggers, Lockpicks, Cloak
+- Priests: Mace, Holy Symbol, Vestments
+
+Level Progression:
+- Level 1: Base stats + starting equipment
+- Level 2: +10 HP, +2 ATK, +1 DEF, +1 SPD
+- Level 3: Unlock special ability
+- Level 4: +15 HP, +3 ATK, +2 DEF, +1 SPD
+- Level 5: Tarot destiny activates
+
+Generation Rules:
+- Archetype distribution: Equal (25% each)
+- Element distribution: Equal (25% each)
+- Tarot cards: Common 50%, Uncommon 30%, Rare 15%, Boss 5%
+- Starting level: Always 1
+- Equipment: Based on archetype

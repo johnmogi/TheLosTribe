@@ -1,0 +1,23 @@
+{
+  "generators": {
+    "monster": {
+      "stats": ["hp", "attack", "defense", "speed"],
+      "elements": ["Fire", "Water", "Air", "Earth"],
+      "tarot_cards": ["The Tower", "The Fool", "The Magician", "The Hermit", "Death", "Wheel of Fortune"]
+    },
+    "room": {
+      "types": ["Battle", "Trap", "Treasure", "Rest", "Boss", "Event"],
+      "tarot_flavors": ["The Hermit", "Wheel of Fortune", "The Tower", "The Fool", "The Magician", "Death"]
+    },
+    "trap": {
+      "physical": ["Spikes", "Falling Rocks", "Poison Gas", "Pit Fall", "Arrow Trap"],
+      "elemental": ["Fire Pit", "Water Flood", "Whirlwind", "Quaking Floor"],
+      "dice_mechanics": ["Fire d4", "Water d4", "Air d4", "Earth d4"]
+    },
+    "hero": {
+      "archetypes": ["Warrior", "Mage", "Rogue", "Priest"],
+      "elements": ["Fire", "Water", "Air", "Earth"],
+      "tarot_destiny": ["The Magician", "Death", "The Fool", "The Hermit", "Wheel of Fortune"]
+    }
+  }
+}

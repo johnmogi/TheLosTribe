@@ -1,0 +1,38 @@
+TRAP GENERATOR BLUEPRINT
+
+Physical Traps:
+- Spikes: Piercing damage | Trigger: Pressure plate
+- Falling Rocks: Crushing damage | Trigger: Tripwire
+- Poison Gas: Poison damage over time | Trigger: Vent release
+- Pit Fall: Falling damage | Trigger: False floor
+- Arrow Trap: Projectile damage | Trigger: Motion sensor
+
+Elemental Traps:
+- Fire Pit: Burn damage | Fire d4 determines duration
+- Water Flood: Drowning damage | Water d4 determines depth
+- Whirlwind: Knockback and damage | Air d4 determines strength
+- Quaking Floor: Stun and damage | Earth d4 determines intensity
+
+Dice Mechanics:
+- Trap Difficulty: Roll matching elemental d4 to avoid/mitigate
+- Success: No damage or reduced damage
+- Partial Success: Half damage
+- Failure: Full damage + additional effects
+
+Trap Templates:
+1. Spike Pit | Physical | Piercing | Pressure plate | Earth d4 to detect
+2. Flame Jet | Elemental | Burn | Motion sensor | Fire d4 resistance
+3. Poison Vent | Physical | Poison | Timer release | Water d4 to neutralize
+4. Boulder Drop | Physical | Crushing | Tripwire | Air d4 to dodge
+5. Ice Patch | Elemental | Freeze | Floor trigger | Water d4 to melt
+6. Wind Tunnel | Elemental | Knockback | Air current | Air d4 to navigate
+7. Acid Spray | Physical | Corrosive | Proximity | Earth d4 to shield
+8. Lightning Rod | Elemental | Shock | Metal trigger | Fire d4 to ground
+
+Placement Rules:
+- Physical traps: 60% chance
+- Elemental traps: 40% chance
+- Easy difficulty: 30% chance to trigger
+- Medium difficulty: 50% chance to trigger
+- Hard difficulty: 70% chance to trigger
+- Boss rooms: Always have traps

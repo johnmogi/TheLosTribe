@@ -1,0 +1,415 @@
+[
+  {
+    "id": "c_dagger",
+    "name": "Quick Dagger",
+    "cost": 1,
+    "effect": { "type": "deal", "value": 6, "element": "air" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_evade",
+    "name": "Swift Evasion",
+    "cost": 1,
+    "effect": { "type": "defend", "value": 4, "element": "air" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_minor_trick",
+    "name": "Minor Trick",
+    "cost": 1,
+    "effect": { "type": "deal", "value": 5, "element": "air" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_fireball",
+    "name": "Fireball",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 10, "element": "fire" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_ignite",
+    "name": "Ignite",
+    "cost": 1,
+    "effect": { "type": "dot", "value": 3, "duration": 2, "element": "fire" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_burn",
+    "name": "Burning Strike",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 8, "element": "fire" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_shield_bash",
+    "name": "Shield Bash",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 7, "element": "earth" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_earthquake",
+    "name": "Earthquake",
+    "cost": 3,
+    "effect": { "type": "aoe", "value": 12, "element": "earth" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_stone_skin",
+    "name": "Stone Skin",
+    "cost": 2,
+    "effect": { "type": "defend", "value": 8, "element": "earth" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_healing_wave",
+    "name": "Healing Wave",
+    "cost": 2,
+    "effect": { "type": "heal", "value": 8, "element": "water" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_water_shield",
+    "name": "Water Shield",
+    "cost": 1,
+    "effect": { "type": "defend", "value": 5, "element": "water" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_tidal_surge",
+    "name": "Tidal Surge",
+    "cost": 3,
+    "effect": { "type": "aoe", "value": 14, "element": "water" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_gust_shot",
+    "name": "Gust Shot",
+    "cost": 1,
+    "effect": { "type": "deal", "value": 5, "element": "air" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_wind_step",
+    "name": "Wind Step",
+    "cost": 1,
+    "effect": { "type": "move", "value": 2, "element": "air" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_air_burst",
+    "name": "Air Burst",
+    "cost": 2,
+    "effect": { "type": "aoe", "value": 9, "element": "air" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_raging_fire",
+    "name": "Raging Fire",
+    "cost": 3,
+    "effect": { "type": "deal", "value": 15, "element": "fire" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_burning_strike",
+    "name": "Burning Strike",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 12, "element": "fire" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_explosion",
+    "name": "Explosion",
+    "cost": 4,
+    "effect": { "type": "aoe", "value": 20, "element": "fire" },
+    "rarity": "epic"
+  },
+  {
+    "id": "c_frost_bolt",
+    "name": "Frost Bolt",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 9, "element": "water" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_ice_shards",
+    "name": "Ice Shards",
+    "cost": 2,
+    "effect": { "type": "aoe", "value": 8, "element": "water" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_freeze",
+    "name": "Freeze",
+    "cost": 3,
+    "effect": { "type": "stun", "value": 2, "element": "water" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_earth_spike",
+    "name": "Earth Spike",
+    "cost": 1,
+    "effect": { "type": "deal", "value": 7, "element": "earth" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_stone_fist",
+    "name": "Stone Fist",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 10, "element": "earth" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_nature_heal",
+    "name": "Nature's Healing",
+    "cost": 2,
+    "effect": { "type": "heal", "value": 10, "element": "earth" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_backstab",
+    "name": "Backstab",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 12, "element": "air" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_smoke_bomb",
+    "name": "Smoke Bomb",
+    "cost": 1,
+    "effect": { "type": "evade", "value": 3, "element": "air" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_shadow_walk",
+    "name": "Shadow Walk",
+    "cost": 3,
+    "effect": { "type": "invisibility", "value": 2, "element": "air" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_lightning_bolt",
+    "name": "Lightning Bolt",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 11, "element": "air" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_thunderclap",
+    "name": "Thunderclap",
+    "cost": 3,
+    "effect": { "type": "aoe", "value": 13, "element": "air" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_chain_lightning",
+    "name": "Chain Lightning",
+    "cost": 4,
+    "effect": { "type": "chain", "value": 8, "element": "air" },
+    "rarity": "epic"
+  },
+  {
+    "id": "c_blood_rage",
+    "name": "Blood Rage",
+    "cost": 3,
+    "effect": { "type": "buff", "value": 6, "duration": 3, "element": "fire" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_life_steal",
+    "name": "Life Steal",
+    "cost": 2,
+    "effect": { "type": "lifesteal", "value": 8, "element": "fire" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_earth_shatter",
+    "name": "Earth Shatter",
+    "cost": 4,
+    "effect": { "type": "aoe", "value": 18, "element": "earth" },
+    "rarity": "epic"
+  },
+  {
+    "id": "c_moonlight_heal",
+    "name": "Moonlight Healing",
+    "cost": 3,
+    "effect": { "type": "heal", "value": 12, "element": "water" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_stellar_blessing",
+    "name": "Stellar Blessing",
+    "cost": 2,
+    "effect": { "type": "buff", "value": 4, "duration": 4, "element": "water" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_lunar_beam",
+    "name": "Lunar Beam",
+    "cost": 4,
+    "effect": { "type": "deal", "value": 16, "element": "water" },
+    "rarity": "epic"
+  },
+  {
+    "id": "c_void_bolt",
+    "name": "Void Bolt",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 10, "element": "earth" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_dark_pact",
+    "name": "Dark Pact",
+    "cost": 3,
+    "effect": { "type": "lifesteal", "value": 12, "element": "earth" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_soul_drain",
+    "name": "Soul Drain",
+    "cost": 4,
+    "effect": { "type": "drain", "value": 15, "element": "earth" },
+    "rarity": "epic"
+  },
+  {
+    "id": "c_divine_shield",
+    "name": "Divine Shield",
+    "cost": 3,
+    "effect": { "type": "defend", "value": 12, "element": "air" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_holy_strike",
+    "name": "Holy Strike",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 9, "element": "air" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_aerial_charge",
+    "name": "Aerial Charge",
+    "cost": 3,
+    "effect": { "type": "charge", "value": 14, "element": "air" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_holy_fire",
+    "name": "Holy Fire",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 8, "element": "fire" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_purifying_flame",
+    "name": "Purifying Flame",
+    "cost": 3,
+    "effect": { "type": "cleanse", "value": 0, "element": "fire" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_steam_heal",
+    "name": "Steam Healing",
+    "cost": 2,
+    "effect": { "type": "heal", "value": 7, "element": "fire" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_storm_arrow",
+    "name": "Storm Arrow",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 10, "element": "air" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_lightning_ride",
+    "name": "Lightning Ride",
+    "cost": 3,
+    "effect": { "type": "charge", "value": 16, "element": "air" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_weather_call",
+    "name": "Weather Call",
+    "cost": 4,
+    "effect": { "type": "weather", "value": 0, "element": "air" },
+    "rarity": "epic"
+  },
+  {
+    "id": "c_earth_heal",
+    "name": "Earth's Healing",
+    "cost": 2,
+    "effect": { "type": "heal", "value": 9, "element": "earth" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_stone_barrier",
+    "name": "Stone Barrier",
+    "cost": 3,
+    "effect": { "type": "defend", "value": 10, "element": "earth" },
+    "rarity": "rare"
+  },
+  {
+    "id": "c_mud_trap",
+    "name": "Mud Trap",
+    "cost": 2,
+    "effect": { "type": "slow", "value": 3, "element": "earth" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_fire_storm",
+    "name": "Fire Storm",
+    "cost": 5,
+    "effect": { "type": "aoe", "value": 25, "element": "fire" },
+    "rarity": "legendary"
+  },
+  {
+    "id": "c_meteor_shower",
+    "name": "Meteor Shower",
+    "cost": 6,
+    "effect": { "type": "aoe", "value": 30, "element": "fire" },
+    "rarity": "legendary"
+  },
+  {
+    "id": "c_ice_shield",
+    "name": "Ice Shield",
+    "cost": 2,
+    "effect": { "type": "defend", "value": 7, "element": "water" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_frost_strike",
+    "name": "Frost Strike",
+    "cost": 2,
+    "effect": { "type": "deal", "value": 8, "element": "water" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_glacier",
+    "name": "Glacier",
+    "cost": 4,
+    "effect": { "type": "aoe", "value": 16, "element": "water" },
+    "rarity": "epic"
+  },
+  {
+    "id": "c_wind_shot",
+    "name": "Wind Shot",
+    "cost": 1,
+    "effect": { "type": "deal", "value": 4, "element": "air" },
+    "rarity": "common"
+  },
+  {
+    "id": "c_gale_force",
+    "name": "Gale Force",
+    "cost": 3,
+    "effect": { "type": "push", "value": 3, "element": "air" },
+    "rarity": "uncommon"
+  },
+  {
+    "id": "c_invisibility",
+    "name": "Invisibility",
+    "cost": 4,
+    "effect": { "type": "stealth", "value": 3, "element": "air" },
+    "rarity": "rare"
+  }
+]

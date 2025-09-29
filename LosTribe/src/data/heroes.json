@@ -1,0 +1,202 @@
+[
+  {
+    "id": "h_trickster",
+    "name": "Trickster Initiate",
+    "class": "rogue",
+    "tarot": "The Fool",
+    "element_affinity": ["air"],
+    "base": { "hp": 40, "atk": 6, "def": 3, "spd": 10 },
+    "starting_deck": ["c_dagger", "c_evade", "c_minor_trick"],
+    "quirk": { "on_low_hp": { "effect": "gain_speed", "value": 2 } }
+  },
+  {
+    "id": "h_pyromancer",
+    "name": "Pyromancer Adept",
+    "class": "mage",
+    "tarot": "The Magician",
+    "element_affinity": ["fire"],
+    "base": { "hp": 35, "atk": 8, "def": 2, "spd": 6 },
+    "starting_deck": ["c_fireball", "c_ignite", "c_burn"],
+    "quirk": { "on_elemental_cast": { "effect": "chain_reaction", "chance": 0.3 } }
+  },
+  {
+    "id": "h_stoneward",
+    "name": "Stoneward Guardian",
+    "class": "warrior",
+    "tarot": "The Hermit",
+    "element_affinity": ["earth"],
+    "base": { "hp": 55, "atk": 7, "def": 6, "spd": 4 },
+    "starting_deck": ["c_shield_bash", "c_earthquake", "c_stone_skin"],
+    "quirk": { "on_defend": { "effect": "counter_attack", "chance": 0.4 } }
+  },
+  {
+    "id": "h_tidesage",
+    "name": "Tidesage Oracle",
+    "class": "priest",
+    "tarot": "The Lovers",
+    "element_affinity": ["water"],
+    "base": { "hp": 45, "atk": 5, "def": 4, "spd": 5 },
+    "starting_deck": ["c_healing_wave", "c_water_shield", "c_tidal_surge"],
+    "quirk": { "on_ally_heal": { "effect": "heal_self", "value": 0.5 } }
+  },
+  {
+    "id": "h_windwalker",
+    "name": "Windwalker Scout",
+    "class": "ranger",
+    "tarot": "The Chariot",
+    "element_affinity": ["air"],
+    "base": { "hp": 42, "atk": 9, "def": 3, "spd": 8 },
+    "starting_deck": ["c_gust_shot", "c_wind_step", "c_air_burst"],
+    "quirk": { "on_move": { "effect": "evade_boost", "duration": 1 } }
+  },
+  {
+    "id": "h_flameblade",
+    "name": "Flameblade Berserker",
+    "class": "warrior",
+    "tarot": "The Tower",
+    "element_affinity": ["fire"],
+    "base": { "hp": 50, "atk": 10, "def": 4, "spd": 7 },
+    "starting_deck": ["c_raging_fire", "c_burning_strike", "c_explosion"],
+    "quirk": { "on_rage": { "effect": "area_damage", "radius": 1 } }
+  },
+  {
+    "id": "h_frostweaver",
+    "name": "Frostweaver Mage",
+    "class": "mage",
+    "tarot": "Death",
+    "element_affinity": ["water"],
+    "base": { "hp": 38, "atk": 7, "def": 5, "spd": 6 },
+    "starting_deck": ["c_frost_bolt", "c_ice_shards", "c_freeze"],
+    "quirk": { "on_kill": { "effect": "frost_armor", "duration": 2 } }
+  },
+  {
+    "id": "h_earthshaker",
+    "name": "Earthshaker Druid",
+    "class": "druid",
+    "tarot": "Strength",
+    "element_affinity": ["earth"],
+    "base": { "hp": 48, "atk": 6, "def": 7, "spd": 5 },
+    "starting_deck": ["c_earth_spike", "c_stone_fist", "c_nature_heal"],
+    "quirk": { "on_earth_cast": { "effect": "tremor", "chance": 0.6 } }
+  },
+  {
+    "id": "h_shadowstep",
+    "name": "Shadowstep Assassin",
+    "class": "rogue",
+    "tarot": "Justice",
+    "element_affinity": ["air", "earth"],
+    "base": { "hp": 44, "atk": 8, "def": 4, "spd": 9 },
+    "starting_deck": ["c_backstab", "c_smoke_bomb", "c_shadow_walk"],
+    "quirk": { "on_stealth": { "effect": "crit_boost", "value": 2.0 } }
+  },
+  {
+    "id": "h_stormcaller",
+    "name": "Stormcaller Shaman",
+    "class": "mage",
+    "tarot": "The Wheel of Fortune",
+    "element_affinity": ["air", "water"],
+    "base": { "hp": 40, "atk": 9, "def": 3, "spd": 7 },
+    "starting_deck": ["c_lightning_bolt", "c_thunderclap", "c_chain_lightning"],
+    "quirk": { "on_crit": { "effect": "random_weather", "duration": 3 } }
+  },
+  {
+    "id": "h_bloodreaver",
+    "name": "Bloodreaver Barbarian",
+    "class": "warrior",
+    "tarot": "Death",
+    "element_affinity": ["fire", "earth"],
+    "base": { "hp": 60, "atk": 11, "def": 5, "spd": 6 },
+    "starting_deck": ["c_blood_rage", "c_life_steal", "c_earth_shatter"],
+    "quirk": { "on_damage": { "effect": "heal_percent", "value": 0.3 } }
+  },
+  {
+    "id": "h_moonpriestess",
+    "name": "Moon Priestess",
+    "class": "priest",
+    "tarot": "The Lovers",
+    "element_affinity": ["water", "air"],
+    "base": { "hp": 46, "atk": 6, "def": 5, "spd": 6 },
+    "starting_deck": ["c_moonlight_heal", "c_stellar_blessing", "c_lunar_beam"],
+    "quirk": { "at_night": { "effect": "power_boost", "value": 1.5 } }
+  },
+  {
+    "id": "h_voidwalker",
+    "name": "Voidwalker Warlock",
+    "class": "mage",
+    "tarot": "The Hermit",
+    "element_affinity": ["earth", "fire"],
+    "base": { "hp": 42, "atk": 10, "def": 4, "spd": 5 },
+    "starting_deck": ["c_void_bolt", "c_dark_pact", "c_soul_drain"],
+    "quirk": { "on_dark_cast": { "effect": "corruption_spread", "chance": 0.4 } }
+  },
+  {
+    "id": "h_skyguardian",
+    "name": "Sky Guardian",
+    "class": "paladin",
+    "tarot": "The Chariot",
+    "element_affinity": ["air", "earth"],
+    "base": { "hp": 52, "atk": 8, "def": 7, "spd": 6 },
+    "starting_deck": ["c_divine_shield", "c_holy_strike", "c_aerial_charge"],
+    "quirk": { "on_aerial": { "effect": "divine_protection", "duration": 2 } }
+  },
+  {
+    "id": "h_flamepriest",
+    "name": "Flame Priest",
+    "class": "priest",
+    "tarot": "The Magician",
+    "element_affinity": ["fire", "water"],
+    "base": { "hp": 48, "atk": 7, "def": 6, "spd": 5 },
+    "starting_deck": ["c_holy_fire", "c_purifying_flame", "c_steam_heal"],
+    "quirk": { "on_fire_heal": { "effect": "cleanse_debuffs", "chance": 0.8 } }
+  },
+  {
+    "id": "h_stormrider",
+    "name": "Storm Rider",
+    "class": "ranger",
+    "tarot": "The Wheel of Fortune",
+    "element_affinity": ["air", "water"],
+    "base": { "hp": 44, "atk": 9, "def": 4, "spd": 8 },
+    "starting_deck": ["c_storm_arrow", "c_lightning_ride", "c_weather_call"],
+    "quirk": { "on_weather": { "effect": "elemental_bonus", "value": 1.3 } }
+  },
+  {
+    "id": "h_earthsage",
+    "name": "Earth Sage",
+    "class": "druid",
+    "tarot": "Strength",
+    "element_affinity": ["earth", "water"],
+    "base": { "hp": 50, "atk": 6, "def": 8, "spd": 4 },
+    "starting_deck": ["c_earth_heal", "c_stone_barrier", "c_mud_trap"],
+    "quirk": { "on_earth_heal": { "effect": "root_enemies", "chance": 0.5 } }
+  },
+  {
+    "id": "h_firestorm",
+    "name": "Firestorm Evoker",
+    "class": "mage",
+    "tarot": "The Tower",
+    "element_affinity": ["fire", "air"],
+    "base": { "hp": 36, "atk": 12, "def": 3, "spd": 7 },
+    "starting_deck": ["c_fire_storm", "c_meteor_shower", "c_explosion"],
+    "quirk": { "on_overload": { "effect": "chain_explosion", "radius": 2 } }
+  },
+  {
+    "id": "h_frostguard",
+    "name": "Frost Guard",
+    "class": "warrior",
+    "tarot": "Justice",
+    "element_affinity": ["water", "earth"],
+    "base": { "hp": 58, "atk": 7, "def": 8, "spd": 4 },
+    "starting_deck": ["c_ice_shield", "c_frost_strike", "c_glacier"],
+    "quirk": { "on_frost_defend": { "effect": "freeze_attackers", "chance": 0.6 } }
+  },
+  {
+    "id": "h_windwhisper",
+    "name": "Wind Whisperer",
+    "class": "ranger",
+    "tarot": "The Fool",
+    "element_affinity": ["air"],
+    "base": { "hp": 40, "atk": 8, "def": 3, "spd": 12 },
+    "starting_deck": ["c_wind_shot", "c_gale_force", "c_invisibility"],
+    "quirk": { "on_wind_cast": { "effect": "random_teleport", "chance": 0.2 } }
+  }
+]

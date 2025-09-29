@@ -1,0 +1,330 @@
+[
+  {
+    "id": "m_fire_imp",
+    "name": "Fire Imp",
+    "level": 1,
+    "element": "fire",
+    "tarot": "The Fool",
+    "base": { "hp": 25, "atk": 6, "def": 2, "spd": 8 },
+    "abilities": [
+      { "id": "fireball", "type": "ranged", "value": 8, "element": "fire", "dice_required": "fire" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 2, "max": 5, "chance": 1.0 },
+      { "type": "relic", "id": "r_fire_crystal", "chance": 0.05 }
+    ],
+    "tags": ["elemental", "imp", "fire"]
+  },
+  {
+    "id": "m_stone_golem",
+    "name": "Stone Golem",
+    "level": 2,
+    "element": "earth",
+    "tarot": "The Hermit",
+    "base": { "hp": 60, "atk": 8, "def": 8, "spd": 3 },
+    "abilities": [
+      { "id": "stone_slam", "type": "melee", "value": 12, "element": "earth", "dice_required": "earth" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 8, "max": 15, "chance": 1.0 },
+      { "type": "weapon", "id": "w_stone_maul", "chance": 0.1 }
+    ],
+    "tags": ["construct", "golem", "earth"]
+  },
+  {
+    "id": "m_wind_sprite",
+    "name": "Wind Sprite",
+    "level": 1,
+    "element": "air",
+    "tarot": "The Magician",
+    "base": { "hp": 20, "atk": 5, "def": 1, "spd": 12 },
+    "abilities": [
+      { "id": "gust", "type": "special", "value": 0, "element": "air", "dice_required": "air", "effect": "push_back" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 1, "max": 3, "chance": 1.0 }
+    ],
+    "tags": ["elemental", "sprite", "air"]
+  },
+  {
+    "id": "m_water_elemental",
+    "name": "Water Elemental",
+    "level": 3,
+    "element": "water",
+    "tarot": "The Lovers",
+    "base": { "hp": 45, "atk": 7, "def": 5, "spd": 6 },
+    "abilities": [
+      { "id": "tidal_wave", "type": "aoe", "value": 10, "element": "water", "dice_required": "water" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 10, "max": 20, "chance": 1.0 },
+      { "type": "relic", "id": "r_water_orb", "chance": 0.15 }
+    ],
+    "tags": ["elemental", "water"]
+  },
+  {
+    "id": "m_flame_demon",
+    "name": "Flame Demon",
+    "level": 4,
+    "element": "fire",
+    "tarot": "The Tower",
+    "base": { "hp": 80, "atk": 15, "def": 6, "spd": 7 },
+    "abilities": [
+      { "id": "inferno_blast", "type": "aoe", "value": 20, "element": "fire", "dice_required": "fire" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 25, "max": 50, "chance": 1.0 },
+      { "type": "weapon", "id": "w_demon_flame", "chance": 0.3 },
+      { "type": "relic", "id": "r_hellfire_core", "chance": 0.2 }
+    ],
+    "tags": ["demon", "boss", "fire"]
+  },
+  {
+    "id": "m_earth_titan",
+    "name": "Earth Titan",
+    "level": 5,
+    "element": "earth",
+    "tarot": "Death",
+    "base": { "hp": 120, "atk": 18, "def": 12, "spd": 4 },
+    "abilities": [
+      { "id": "earthquake", "type": "aoe", "value": 25, "element": "earth", "dice_required": "earth" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 50, "max": 100, "chance": 1.0 },
+      { "type": "weapon", "id": "w_titan_fist", "chance": 0.4 },
+      { "type": "relic", "id": "r_earth_heart", "chance": 0.3 }
+    ],
+    "tags": ["titan", "boss", "earth"]
+  },
+  {
+    "id": "m_storm_harpy",
+    "name": "Storm Harpy",
+    "level": 3,
+    "element": "air",
+    "tarot": "The Wheel of Fortune",
+    "base": { "hp": 35, "atk": 10, "def": 4, "spd": 10 },
+    "abilities": [
+      { "id": "lightning_strike", "type": "ranged", "value": 15, "element": "air", "dice_required": "air" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 15, "max": 25, "chance": 1.0 },
+      { "type": "relic", "id": "r_storm_feather", "chance": 0.12 }
+    ],
+    "tags": ["harpy", "storm", "air"]
+  },
+  {
+    "id": "m_ice_wraith",
+    "name": "Ice Wraith",
+    "level": 4,
+    "element": "water",
+    "tarot": "Justice",
+    "base": { "hp": 65, "atk": 12, "def": 7, "spd": 8 },
+    "abilities": [
+      { "id": "frost_nova", "type": "aoe", "value": 18, "element": "water", "dice_required": "water" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 20, "max": 40, "chance": 1.0 },
+      { "type": "weapon", "id": "w_frost_blade", "chance": 0.25 },
+      { "type": "relic", "id": "r_ice_soul", "chance": 0.18 }
+    ],
+    "tags": ["undead", "ice", "water"]
+  },
+  {
+    "id": "m_lava_beast",
+    "name": "Lava Beast",
+    "level": 3,
+    "element": "fire",
+    "tarot": "Strength",
+    "base": { "hp": 70, "atk": 14, "def": 8, "spd": 5 },
+    "abilities": [
+      { "id": "magma_spray", "type": "aoe", "value": 16, "element": "fire", "dice_required": "fire" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 18, "max": 30, "chance": 1.0 },
+      { "type": "relic", "id": "r_lava_heart", "chance": 0.08 }
+    ],
+    "tags": ["beast", "lava", "fire"]
+  },
+  {
+    "id": "m_crystal_giant",
+    "name": "Crystal Giant",
+    "level": 6,
+    "element": "earth",
+    "tarot": "The Chariot",
+    "base": { "hp": 150, "atk": 20, "def": 15, "spd": 3 },
+    "abilities": [
+      { "id": "crystal_shatter", "type": "aoe", "value": 30, "element": "earth", "dice_required": "earth" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 75, "max": 150, "chance": 1.0 },
+      { "type": "weapon", "id": "w_crystal_greatsword", "chance": 0.5 },
+      { "type": "relic", "id": "r_crystal_core", "chance": 0.4 }
+    ],
+    "tags": ["giant", "crystal", "earth"]
+  },
+  {
+    "id": "m_thunder_bird",
+    "name": "Thunder Bird",
+    "level": 4,
+    "element": "air",
+    "tarot": "The Tower",
+    "base": { "hp": 55, "atk": 13, "def": 6, "spd": 11 },
+    "abilities": [
+      { "id": "thunder_clap", "type": "aoe", "value": 22, "element": "air", "dice_required": "air" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 22, "max": 45, "chance": 1.0 },
+      { "type": "relic", "id": "r_thunder_plume", "chance": 0.15 }
+    ],
+    "tags": ["bird", "thunder", "air"]
+  },
+  {
+    "id": "m_abyssal_serpent",
+    "name": "Abyssal Serpent",
+    "level": 5,
+    "element": "water",
+    "tarot": "Death",
+    "base": { "hp": 90, "atk": 16, "def": 9, "spd": 7 },
+    "abilities": [
+      { "id": "abyssal_surge", "type": "aoe", "value": 28, "element": "water", "dice_required": "water" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 40, "max": 80, "chance": 1.0 },
+      { "type": "weapon", "id": "w_serpent_fang", "chance": 0.35 },
+      { "type": "relic", "id": "r_abyssal_pearl", "chance": 0.25 }
+    ],
+    "tags": ["serpent", "abyssal", "water"]
+  },
+  {
+    "id": "m_phoenix_guardian",
+    "name": "Phoenix Guardian",
+    "level": 7,
+    "element": "fire",
+    "tarot": "Death",
+    "base": { "hp": 100, "atk": 18, "def": 8, "spd": 9 },
+    "abilities": [
+      { "id": "phoenix_rise", "type": "special", "value": 0, "element": "fire", "dice_required": "fire", "effect": "rebirth" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 100, "max": 200, "chance": 1.0 },
+      { "type": "weapon", "id": "w_phoenix_wing", "chance": 0.6 },
+      { "type": "relic", "id": "r_phoenix_ash", "chance": 0.5 }
+    ],
+    "tags": ["phoenix", "guardian", "fire"]
+  },
+  {
+    "id": "m_mountain_spirit",
+    "name": "Mountain Spirit",
+    "level": 6,
+    "element": "earth",
+    "tarot": "The Hermit",
+    "base": { "hp": 130, "atk": 17, "def": 14, "spd": 2 },
+    "abilities": [
+      { "id": "mountain_stomp", "type": "aoe", "value": 26, "element": "earth", "dice_required": "earth" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 60, "max": 120, "chance": 1.0 },
+      { "type": "relic", "id": "r_mountain_heart", "chance": 0.35 }
+    ],
+    "tags": ["spirit", "mountain", "earth"]
+  },
+  {
+    "id": "m_sky_seraph",
+    "name": "Sky Seraph",
+    "level": 5,
+    "element": "air",
+    "tarot": "The Lovers",
+    "base": { "hp": 75, "atk": 14, "def": 7, "spd": 12 },
+    "abilities": [
+      { "id": "divine_wind", "type": "aoe", "value": 24, "element": "air", "dice_required": "air" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 35, "max": 70, "chance": 1.0 },
+      { "type": "weapon", "id": "w_seraph_blade", "chance": 0.3 },
+      { "type": "relic", "id": "r_sky_essence", "chance": 0.22 }
+    ],
+    "tags": ["seraph", "sky", "air"]
+  },
+  {
+    "id": "m_deep_sea_lurker",
+    "name": "Deep Sea Lurker",
+    "level": 4,
+    "element": "water",
+    "tarot": "The Hermit",
+    "base": { "hp": 85, "atk": 13, "def": 10, "spd": 5 },
+    "abilities": [
+      { "id": "deep_pressure", "type": "aoe", "value": 20, "element": "water", "dice_required": "water" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 28, "max": 55, "chance": 1.0 },
+      { "type": "relic", "id": "r_deep_pearl", "chance": 0.18 }
+    ],
+    "tags": ["lurker", "deep_sea", "water"]
+  },
+  {
+    "id": "m_volcano_lord",
+    "name": "Volcano Lord",
+    "level": 8,
+    "element": "fire",
+    "tarot": "The Tower",
+    "base": { "hp": 200, "atk": 25, "def": 12, "spd": 6 },
+    "abilities": [
+      { "id": "volcanic_eruption", "type": "aoe", "value": 40, "element": "fire", "dice_required": "fire" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 150, "max": 300, "chance": 1.0 },
+      { "type": "weapon", "id": "w_volcano_heart", "chance": 0.7 },
+      { "type": "relic", "id": "r_volcanic_core", "chance": 0.6 }
+    ],
+    "tags": ["lord", "volcano", "fire"]
+  },
+  {
+    "id": "m_ancient_tree",
+    "name": "Ancient Tree Guardian",
+    "level": 7,
+    "element": "earth",
+    "tarot": "Strength",
+    "base": { "hp": 180, "atk": 19, "def": 16, "spd": 1 },
+    "abilities": [
+      { "id": "root_strangle", "type": "aoe", "value": 32, "element": "earth", "dice_required": "earth" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 90, "max": 180, "chance": 1.0 },
+      { "type": "relic", "id": "r_ancient_bark", "chance": 0.45 }
+    ],
+    "tags": ["ancient", "tree", "earth"]
+  },
+  {
+    "id": "m_tempest_djinn",
+    "name": "Tempest Djinn",
+    "level": 6,
+    "element": "air",
+    "tarot": "The Wheel of Fortune",
+    "base": { "hp": 95, "atk": 16, "def": 8, "spd": 13 },
+    "abilities": [
+      { "id": "tempest_rage", "type": "aoe", "value": 28, "element": "air", "dice_required": "air" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 55, "max": 110, "chance": 1.0 },
+      { "type": "weapon", "id": "w_djinn_blade", "chance": 0.4 },
+      { "type": "relic", "id": "r_tempest_orb", "chance": 0.3 }
+    ],
+    "tags": ["djinn", "tempest", "air"]
+  },
+  {
+    "id": "m_kraken_spawn",
+    "name": "Kraken Spawn",
+    "level": 5,
+    "element": "water",
+    "tarot": "The Chariot",
+    "base": { "hp": 110, "atk": 17, "def": 11, "spd": 6 },
+    "abilities": [
+      { "id": "tentacle_sweep", "type": "aoe", "value": 26, "element": "water", "dice_required": "water" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 45, "max": 90, "chance": 1.0 },
+      { "type": "relic", "id": "r_kraken_ink", "chance": 0.25 }
+    ],
+    "tags": ["kraken", "spawn", "water"]
+  }
+]

@@ -1,0 +1,40 @@
+ROOM GENERATOR BLUEPRINT
+
+Room Types:
+- Battle: Combat encounters
+- Trap: Hazards and dangers
+- Treasure: Loot and rewards
+- Rest: Healing and recovery
+- Boss: Major encounters
+- Event: Special interactions
+
+Tarot Flavors:
+The Hermit: Solitary event room with hidden wisdom
+The Wheel of Fortune: Random reward or punishment
+The Tower: Destructive environment with high risk/reward
+The Fool: Chaotic/random room effects
+The Magician: Magical enhancement or transformation
+Death: Transformative experience that changes the run
+
+Room Templates:
+1. Hall of Echoes | Battle | Long stone corridor | 2-3 monsters | Exits: North, West
+2. Chamber of Flames | Trap | Lava cracks in floor | Fire damage over time | Exit: South
+3. Forgotten Library | Event | Dusty scrolls | Random magic scroll | Exit: East, Down
+4. Collapsed Bridge | Battle | Rope bridge over chasm | Goblin ambush | Exit: Across
+5. Crystal Cavern | Treasure | Glowing crystals | Random loot | Exits: Multiple
+6. Ancient Armory | Battle | Weapon racks | Stone Guardian | Exits: East, West
+7. Mushroom Grove | Trap | Giant fungi | Poison spores | Exits: North, South
+8. Treasury Vault | Treasure | Gold piles | Shadow Wraith guard | Exit: South (locked)
+9. Barracks Hall | Battle | Straw beds | Orc patrol | Exits: North, East
+10. Alchemist Lab | Event | Beakers & potions | Random potion effect | Exit: West
+
+Branching Rules:
+- Start room always connects to 2-3 rooms
+- Battle rooms: 40% chance
+- Treasure rooms: 20% chance
+- Trap rooms: 20% chance
+- Rest rooms: 10% chance
+- Event rooms: 5% chance
+- Boss rooms: 5% chance
+- Each room has 1-3 exits
+- Dead ends: 20% of rooms

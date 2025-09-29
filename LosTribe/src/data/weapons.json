@@ -1,0 +1,272 @@
+[
+  {
+    "id": "w_charred_blade",
+    "name": "Charred Blade",
+    "type": "melee",
+    "element": "fire",
+    "rarity": "rare",
+    "base": { "atk": 12, "def": 0, "spd": 0 },
+    "talent": { "on_hit": { "effect": "burn", "value": 3, "chance": 0.3 } }
+  },
+  {
+    "id": "w_stone_maul",
+    "name": "Stone Maul",
+    "type": "melee",
+    "element": "earth",
+    "rarity": "uncommon",
+    "base": { "atk": 10, "def": 2, "spd": -1 },
+    "talent": { "on_hit": { "effect": "stun", "value": 1, "chance": 0.2 } }
+  },
+  {
+    "id": "w_demon_flame",
+    "name": "Demon's Flame",
+    "type": "melee",
+    "element": "fire",
+    "rarity": "epic",
+    "base": { "atk": 18, "def": 0, "spd": 1 },
+    "talent": { "on_hit": { "effect": "burn", "value": 5, "chance": 0.5 } }
+  },
+  {
+    "id": "w_titan_fist",
+    "name": "Titan's Fist",
+    "type": "melee",
+    "element": "earth",
+    "rarity": "legendary",
+    "base": { "atk": 22, "def": 4, "spd": -2 },
+    "talent": { "on_hit": { "effect": "earthquake", "value": 10, "chance": 0.3 } }
+  },
+  {
+    "id": "w_frost_blade",
+    "name": "Frost Blade",
+    "type": "melee",
+    "element": "water",
+    "rarity": "rare",
+    "base": { "atk": 14, "def": 1, "spd": 0 },
+    "talent": { "on_hit": { "effect": "freeze", "value": 2, "chance": 0.4 } }
+  },
+  {
+    "id": "w_serpent_fang",
+    "name": "Serpent Fang",
+    "type": "melee",
+    "element": "water",
+    "rarity": "epic",
+    "base": { "atk": 16, "def": 0, "spd": 2 },
+    "talent": { "on_hit": { "effect": "poison", "value": 4, "chance": 0.6 } }
+  },
+  {
+    "id": "w_phoenix_wing",
+    "name": "Phoenix Wing",
+    "type": "melee",
+    "element": "fire",
+    "rarity": "legendary",
+    "base": { "atk": 20, "def": 2, "spd": 1 },
+    "talent": { "on_hit": { "effect": "rebirth", "value": 0, "chance": 0.1 } }
+  },
+  {
+    "id": "w_crystal_greatsword",
+    "name": "Crystal Greatsword",
+    "type": "melee",
+    "element": "earth",
+    "rarity": "legendary",
+    "base": { "atk": 25, "def": 3, "spd": -1 },
+    "talent": { "on_hit": { "effect": "shatter", "value": 15, "chance": 0.25 } }
+  },
+  {
+    "id": "w_seraph_blade",
+    "name": "Seraph Blade",
+    "type": "melee",
+    "element": "air",
+    "rarity": "epic",
+    "base": { "atk": 17, "def": 1, "spd": 3 },
+    "talent": { "on_hit": { "effect": "lightning", "value": 8, "chance": 0.35 } }
+  },
+  {
+    "id": "w_djinn_blade",
+    "name": "Djinn Blade",
+    "type": "melee",
+    "element": "air",
+    "rarity": "rare",
+    "base": { "atk": 13, "def": 0, "spd": 4 },
+    "talent": { "on_hit": { "effect": "gust", "value": 5, "chance": 0.4 } }
+  },
+  {
+    "id": "w_volcano_heart",
+    "name": "Volcano Heart",
+    "type": "melee",
+    "element": "fire",
+    "rarity": "legendary",
+    "base": { "atk": 28, "def": 0, "spd": 0 },
+    "talent": { "on_hit": { "effect": "eruption", "value": 20, "chance": 0.2 } }
+  },
+  {
+    "id": "w_ancient_bark",
+    "name": "Ancient Bark",
+    "type": "melee",
+    "element": "earth",
+    "rarity": "epic",
+    "base": { "atk": 15, "def": 5, "spd": -1 },
+    "talent": { "on_hit": { "effect": "root", "value": 3, "chance": 0.5 } }
+  },
+  {
+    "id": "w_tempest_orb",
+    "name": "Tempest Orb",
+    "type": "ranged",
+    "element": "air",
+    "rarity": "epic",
+    "base": { "atk": 19, "def": 0, "spd": 2 },
+    "talent": { "on_hit": { "effect": "chain_lightning", "value": 12, "chance": 0.3 } }
+  },
+  {
+    "id": "w_kraken_ink",
+    "name": "Kraken Ink",
+    "type": "melee",
+    "element": "water",
+    "rarity": "rare",
+    "base": { "atk": 11, "def": 2, "spd": 1 },
+    "talent": { "on_hit": { "effect": "blind", "value": 2, "chance": 0.6 } }
+  },
+  {
+    "id": "w_fire_crystal",
+    "name": "Fire Crystal",
+    "type": "ranged",
+    "element": "fire",
+    "rarity": "uncommon",
+    "base": { "atk": 9, "def": 0, "spd": 1 },
+    "talent": { "on_hit": { "effect": "ignite", "value": 2, "chance": 0.7 } }
+  },
+  {
+    "id": "w_water_orb",
+    "name": "Water Orb",
+    "type": "ranged",
+    "element": "water",
+    "rarity": "rare",
+    "base": { "atk": 13, "def": 1, "spd": 0 },
+    "talent": { "on_hit": { "effect": "slow", "value": 2, "chance": 0.5 } }
+  },
+  {
+    "id": "w_earth_heart",
+    "name": "Earth Heart",
+    "type": "melee",
+    "element": "earth",
+    "rarity": "epic",
+    "base": { "atk": 16, "def": 6, "spd": -2 },
+    "talent": { "on_hit": { "effect": "petrify", "value": 1, "chance": 0.3 } }
+  },
+  {
+    "id": "w_storm_feather",
+    "name": "Storm Feather",
+    "type": "ranged",
+    "element": "air",
+    "rarity": "uncommon",
+    "base": { "atk": 8, "def": 0, "spd": 3 },
+    "talent": { "on_hit": { "effect": "shock", "value": 3, "chance": 0.4 } }
+  },
+  {
+    "id": "w_ice_soul",
+    "name": "Ice Soul",
+    "type": "melee",
+    "element": "water",
+    "rarity": "rare",
+    "base": { "atk": 12, "def": 3, "spd": 0 },
+    "talent": { "on_hit": { "effect": "brittle", "value": 2, "chance": 0.5 } }
+  },
+  {
+    "id": "w_lava_heart",
+    "name": "Lava Heart",
+    "type": "melee",
+    "element": "fire",
+    "rarity": "uncommon",
+    "base": { "atk": 10, "def": 1, "spd": 1 },
+    "talent": { "on_hit": { "effect": "melt", "value": 4, "chance": 0.3 } }
+  },
+  {
+    "id": "w_deep_pearl",
+    "name": "Deep Pearl",
+    "type": "ranged",
+    "element": "water",
+    "rarity": "rare",
+    "base": { "atk": 14, "def": 0, "spd": 1 },
+    "talent": { "on_hit": { "effect": "drown", "value": 6, "chance": 0.25 } }
+  },
+  {
+    "id": "w_hellfire_core",
+    "name": "Hellfire Core",
+    "type": "melee",
+    "element": "fire",
+    "rarity": "epic",
+    "base": { "atk": 21, "def": 0, "spd": 2 },
+    "talent": { "on_hit": { "effect": "immolate", "value": 8, "chance": 0.4 } }
+  },
+  {
+    "id": "w_crystal_core",
+    "name": "Crystal Core",
+    "type": "melee",
+    "element": "earth",
+    "rarity": "epic",
+    "base": { "atk": 19, "def": 4, "spd": 0 },
+    "talent": { "on_hit": { "effect": "crystalize", "value": 5, "chance": 0.35 } }
+  },
+  {
+    "id": "w_thunder_plume",
+    "name": "Thunder Plume",
+    "type": "ranged",
+    "element": "air",
+    "rarity": "rare",
+    "base": { "atk": 15, "def": 0, "spd": 2 },
+    "talent": { "on_hit": { "effect": "thunder", "value": 7, "chance": 0.3 } }
+  },
+  {
+    "id": "w_abyssal_pearl",
+    "name": "Abyssal Pearl",
+    "type": "ranged",
+    "element": "water",
+    "rarity": "epic",
+    "base": { "atk": 17, "def": 1, "spd": 1 },
+    "talent": { "on_hit": { "effect": "crush", "value": 10, "chance": 0.25 } }
+  },
+  {
+    "id": "w_phoenix_ash",
+    "name": "Phoenix Ash",
+    "type": "melee",
+    "element": "fire",
+    "rarity": "legendary",
+    "base": { "atk": 24, "def": 2, "spd": 1 },
+    "talent": { "on_hit": { "effect": "reincarnate", "value": 0, "chance": 0.15 } }
+  },
+  {
+    "id": "w_mountain_heart",
+    "name": "Mountain Heart",
+    "type": "melee",
+    "element": "earth",
+    "rarity": "epic",
+    "base": { "atk": 18, "def": 7, "spd": -1 },
+    "talent": { "on_hit": { "effect": "avalanche", "value": 12, "chance": 0.2 } }
+  },
+  {
+    "id": "w_sky_essence",
+    "name": "Sky Essence",
+    "type": "ranged",
+    "element": "air",
+    "rarity": "epic",
+    "base": { "atk": 16, "def": 1, "spd": 4 },
+    "talent": { "on_hit": { "effect": "levitate", "value": 3, "chance": 0.3 } }
+  },
+  {
+    "id": "w_tempest_orb",
+    "name": "Tempest Orb",
+    "type": "ranged",
+    "element": "air",
+    "rarity": "epic",
+    "base": { "atk": 19, "def": 0, "spd": 2 },
+    "talent": { "on_hit": { "effect": "tempest", "value": 14, "chance": 0.25 } }
+  },
+  {
+    "id": "w_volcanic_core",
+    "name": "Volcanic Core",
+    "type": "melee",
+    "element": "fire",
+    "rarity": "legendary",
+    "base": { "atk": 26, "def": 1, "spd": 0 },
+    "talent": { "on_hit": { "effect": "volcano", "value": 30, "chance": 0.15 } }
+  }
+]
