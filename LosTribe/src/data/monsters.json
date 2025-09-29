@@ -16,6 +16,22 @@
     "tags": ["elemental", "imp", "fire"]
   },
   {
+    "id": "m_mirage_jackal",
+    "name": "Mirage Jackal",
+    "level": 1,
+    "element": "air",
+    "tarot": "The Fool",
+    "base": { "hp": 28, "atk": 7, "def": 2, "spd": 10 },
+    "abilities": [
+      { "id": "sand_copy", "type": "special", "value": 0, "element": "air", "dice_required": "air", "effect": "duplicate" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 3, "max": 6, "chance": 1.0 },
+      { "type": "relic", "id": "r_jackal_talisman", "chance": 0.08 }
+    ],
+    "tags": ["beast", "illusion", "air"]
+  },
+  {
     "id": "m_stone_golem",
     "name": "Stone Golem",
     "level": 2,
@@ -61,6 +77,22 @@
       { "type": "relic", "id": "r_water_orb", "chance": 0.15 }
     ],
     "tags": ["elemental", "water"]
+  },
+  {
+    "id": "m_sphinx_of_whispers",
+    "name": "Sphinx of Whispers",
+    "level": 3,
+    "element": "air",
+    "tarot": "The High Priestess",
+    "base": { "hp": 55, "atk": 9, "def": 6, "spd": 8 },
+    "abilities": [
+      { "id": "riddle_gaze", "type": "special", "value": 0, "element": "air", "dice_required": "air", "effect": "confuse" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 18, "max": 32, "chance": 1.0 },
+      { "type": "relic", "id": "r_lotus_scroll", "chance": 0.2 }
+    ],
+    "tags": ["sphinx", "guardian", "air"]
   },
   {
     "id": "m_flame_demon",
@@ -146,6 +178,22 @@
     "tags": ["beast", "lava", "fire"]
   },
   {
+    "id": "m_cyclone_manticore",
+    "name": "Cyclone Manticore",
+    "level": 4,
+    "element": "air",
+    "tarot": "Strength",
+    "base": { "hp": 85, "atk": 16, "def": 7, "spd": 11 },
+    "abilities": [
+      { "id": "rage_gale", "type": "aoe", "value": 22, "element": "air", "dice_required": "air" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 30, "max": 60, "chance": 1.0 },
+      { "type": "relic", "id": "r_manticore_spine", "chance": 0.18 }
+    ],
+    "tags": ["manticore", "storm", "air"]
+  },
+  {
     "id": "m_crystal_giant",
     "name": "Crystal Giant",
     "level": 6,
@@ -163,6 +211,22 @@
     "tags": ["giant", "crystal", "earth"]
   },
   {
+    "id": "m_tempest_charioteer",
+    "name": "Tempest Charioteer",
+    "level": 5,
+    "element": "air",
+    "tarot": "The Chariot",
+    "base": { "hp": 80, "atk": 15, "def": 6, "spd": 14 },
+    "abilities": [
+      { "id": "momentum_drain", "type": "special", "value": 0, "element": "air", "dice_required": "air", "effect": "slow" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 38, "max": 72, "chance": 1.0 },
+      { "type": "relic", "id": "r_chariot_reins", "chance": 0.22 }
+    ],
+    "tags": ["djinn", "rider", "air"]
+  },
+  {
     "id": "m_thunder_bird",
     "name": "Thunder Bird",
     "level": 4,
@@ -177,6 +241,22 @@
       { "type": "relic", "id": "r_thunder_plume", "chance": 0.15 }
     ],
     "tags": ["bird", "thunder", "air"]
+  },
+  {
+    "id": "m_serpent_of_cycles",
+    "name": "Serpent of Cycles",
+    "level": 5,
+    "element": "air",
+    "tarot": "Wheel of Fortune",
+    "base": { "hp": 95, "atk": 17, "def": 8, "spd": 12 },
+    "abilities": [
+      { "id": "cycle_shift", "type": "special", "value": 0, "element": "air", "dice_required": "air", "effect": "element_shift" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 40, "max": 80, "chance": 1.0 },
+      { "type": "relic", "id": "r_cycle_scale", "chance": 0.26 }
+    ],
+    "tags": ["serpent", "elemental", "air"]
   },
   {
     "id": "m_abyssal_serpent",
@@ -213,6 +293,22 @@
     "tags": ["phoenix", "guardian", "fire"]
   },
   {
+    "id": "m_gale_judge",
+    "name": "Gale Judge",
+    "level": 6,
+    "element": "air",
+    "tarot": "Justice",
+    "base": { "hp": 90, "atk": 14, "def": 12, "spd": 9 },
+    "abilities": [
+      { "id": "balance_strike", "type": "melee", "value": 24, "element": "air", "dice_required": "air" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 55, "max": 100, "chance": 1.0 },
+      { "type": "relic", "id": "r_balance_scale", "chance": 0.25 }
+    ],
+    "tags": ["judge", "guardian", "air"]
+  },
+  {
     "id": "m_mountain_spirit",
     "name": "Mountain Spirit",
     "level": 6,
@@ -227,6 +323,22 @@
       { "type": "relic", "id": "r_mountain_heart", "chance": 0.35 }
     ],
     "tags": ["spirit", "mountain", "earth"]
+  },
+  {
+    "id": "m_time_snag_djinn",
+    "name": "Time-Snag Djinn",
+    "level": 6,
+    "element": "air",
+    "tarot": "The Hanged Man",
+    "base": { "hp": 85, "atk": 12, "def": 9, "spd": 13 },
+    "abilities": [
+      { "id": "time_loop", "type": "special", "value": 0, "element": "air", "dice_required": "air", "effect": "delay" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 48, "max": 92, "chance": 1.0 },
+      { "type": "relic", "id": "r_suspended_hourglass", "chance": 0.27 }
+    ],
+    "tags": ["djinn", "time", "air"]
   },
   {
     "id": "m_sky_seraph",
@@ -246,6 +358,22 @@
     "tags": ["seraph", "sky", "air"]
   },
   {
+    "id": "m_whispering_ifrit",
+    "name": "Whispering Ifrit",
+    "level": 6,
+    "element": "air",
+    "tarot": "The Devil",
+    "base": { "hp": 88, "atk": 18, "def": 6, "spd": 11 },
+    "abilities": [
+      { "id": "cursed_boon", "type": "special", "value": 0, "element": "air", "dice_required": "air", "effect": "temptation" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 52, "max": 98, "chance": 1.0 },
+      { "type": "relic", "id": "r_binding_chain", "chance": 0.24 }
+    ],
+    "tags": ["ifrit", "temptation", "air"]
+  },
+  {
     "id": "m_deep_sea_lurker",
     "name": "Deep Sea Lurker",
     "level": 4,
@@ -260,6 +388,22 @@
       { "type": "relic", "id": "r_deep_pearl", "chance": 0.18 }
     ],
     "tags": ["lurker", "deep_sea", "water"]
+  },
+  {
+    "id": "m_elemental_alchemist",
+    "name": "Elemental Alchemist",
+    "level": 5,
+    "element": "air",
+    "tarot": "Temperance",
+    "base": { "hp": 78, "atk": 13, "def": 9, "spd": 10 },
+    "abilities": [
+      { "id": "element_shift", "type": "special", "value": 0, "element": "air", "dice_required": "air", "effect": "alter_element" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 38, "max": 74, "chance": 1.0 },
+      { "type": "relic", "id": "r_alchemy_vial", "chance": 0.23 }
+    ],
+    "tags": ["alchemist", "elemental", "air"]
   },
   {
     "id": "m_volcano_lord",
@@ -279,6 +423,22 @@
     "tags": ["lord", "volcano", "fire"]
   },
   {
+    "id": "m_comet_wraith",
+    "name": "Comet Wraith",
+    "level": 6,
+    "element": "air",
+    "tarot": "The Star",
+    "base": { "hp": 82, "atk": 14, "def": 5, "spd": 14 },
+    "abilities": [
+      { "id": "hope_drain", "type": "special", "value": 0, "element": "air", "dice_required": "air", "effect": "morale_break" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 48, "max": 88, "chance": 1.0 },
+      { "type": "relic", "id": "r_star_fragment", "chance": 0.27 }
+    ],
+    "tags": ["wraith", "star", "air"]
+  },
+  {
     "id": "m_ancient_tree",
     "name": "Ancient Tree Guardian",
     "level": 7,
@@ -293,6 +453,22 @@
       { "type": "relic", "id": "r_ancient_bark", "chance": 0.45 }
     ],
     "tags": ["ancient", "tree", "earth"]
+  },
+  {
+    "id": "m_night_mirage_basilisk",
+    "name": "Night Mirage Basilisk",
+    "level": 6,
+    "element": "air",
+    "tarot": "The Moon",
+    "base": { "hp": 96, "atk": 18, "def": 8, "spd": 9 },
+    "abilities": [
+      { "id": "hallucination_fog", "type": "special", "value": 0, "element": "air", "dice_required": "air", "effect": "fear" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 52, "max": 96, "chance": 1.0 },
+      { "type": "relic", "id": "r_moon_eye", "chance": 0.26 }
+    ],
+    "tags": ["basilisk", "illusion", "air"]
   },
   {
     "id": "m_tempest_djinn",
@@ -310,6 +486,22 @@
       { "type": "relic", "id": "r_tempest_orb", "chance": 0.3 }
     ],
     "tags": ["djinn", "tempest", "air"]
+  },
+  {
+    "id": "m_solar_roc",
+    "name": "Solar Roc",
+    "level": 7,
+    "element": "air",
+    "tarot": "The Sun",
+    "base": { "hp": 105, "atk": 22, "def": 9, "spd": 12 },
+    "abilities": [
+      { "id": "flare_burst", "type": "aoe", "value": 28, "element": "air", "dice_required": "air" }
+    ],
+    "loot_table": [
+      { "type": "gold", "min": 70, "max": 130, "chance": 1.0 },
+      { "type": "relic", "id": "r_solar_plume", "chance": 0.32 }
+    ],
+    "tags": ["roc", "sun", "air"]
   },
   {
     "id": "m_kraken_spawn",

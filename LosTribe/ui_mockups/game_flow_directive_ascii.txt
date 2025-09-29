@@ -1,0 +1,93 @@
+LOS TRIBE - DIRECTIVE GAME FLOW (EGYPTIAN · GYPSY · AIR)
+========================================================
+
+┌────────────────────────────────┐
+│          SPLASH / START        │
+├────────────────────────────────┤
+│ Papyrus scroll unfurls in wind │
+│   • Prompt: "Choose your caravan's path"      │
+│   • Echoes of sphinx silhouettes on dunes      │
+│ Options: New Game | Load | Settings | Admin    │
+└───────────────┬────────────────┘
+                │
+                ▼
+┌────────────────────────────────┐
+│        HERO CONSECRATION       │
+├────────────────────────────────┤
+│ Caravan circle under star canopy             │
+│   • Archetypes: Nomad, Oracle, Gypsy Dancer, │
+│     Desert Smith                             │
+│   • Destiny Tarot: Seeker of the Wind, Keeper│
+│     of the Ankhs, etc.                       │
+│   • Starting deck = talismans, wind charms   │
+└───────────────┬────────────────┘
+                │
+                ▼
+┌────────────────────────────────┐
+│     BACKSTAGE GENERATION       │
+├────────────────────────────────┤
+│ Storyteller scribes Seven Veils of the Pyramid│
+│   • Floor blueprints inked as sacred geometry │
+│   • Monsters seeded from tarot draws          │
+│   • Relics assigned as caravan heirlooms      │
+└───────────────┬────────────────┘
+                │
+                ▼
+┌────────────────────────────────┐
+│        DUNGEON VEIL LOOP       │
+├────────────────────────────────┤
+│ For each veil (floor 1..7):                   │
+│   ┌─────────────────────────────────────────┐ │
+│   │   ROOM DISCOVERY                        │ │
+│   │   • Sandstorm Ambush (Battle)           │ │
+│   │   • Oasis of Illusions (Event)          │ │
+│   │   • Gypsy Campfire (Merchant)           │ │
+│   │   • Anubis Shrine (Rest)                │ │
+│   └──────────────┬──────────────────────────┘ │
+│                  │ enter combat               │
+│                  ▼                            │
+│   ┌─────────────────────────────────────────┐ │
+│   │      TURN-BASED RITE                    │ │
+│   │   • Tarot cards cast on sand sigils     │ │
+│   │   • Pyramid d3 dice gusted by wind      │ │
+│   │   • Mirage Jackals & Sphinx riddles     │ │
+│   └──────────────┬──────────────────────────┘ │
+│                  │ resolution                 │
+│                  ▼                            │
+│   ┌─────────────────────────────────────────┐ │
+│   │      EVOLUTION MOMENT                   │ │
+│   │   • Scarabs flip cards into higher arcana││
+│   │   • Ankhs and drums awaken relics        │ │
+│   │   • Align with Four Winds (Vision/Breath │ │
+│   │     /Rhythm/Song) for stat growth        │ │
+│   └──────────────────────────────────────────┘ │
+└───────────────┬────────────────┘
+                │
+                ▼
+┌────────────────────────────────┐
+│      VEIL GUARDIAN TRIAL       │
+├────────────────────────────────┤
+│ Major Arcana Guardian (e.g., Twin Flames Lovers) │
+│ Sacred geometry locks require star-pattern solves│
+└───────────────┬────────────────┘
+                │
+                ▼
+┌────────────────────────────────┐
+│    FINAL VEIL: ENLIGHTENMENT   │
+├────────────────────────────────┤
+│ Phoenix ascends from desert ash             │
+│ Paths:                                     │
+│   • Caravan Lord (escape with riches)      │
+│   • Air Tribe Ascendant (enlightenment)    │
+│   • White Star Synthesis (perfect harmony) │
+└───────────────┬────────────────┘
+                │
+                ▼
+┌────────────────────────────────┐
+│        POST-RUN PROPHECY       │
+├────────────────────────────────┤
+│ Prophecy scroll recites stats, awakened tribes │
+│ Next seed delivered as riddle from ibis scribe  │
+└────────────────────────────────┘
+
+Admin Shortcut: Splash ► "Admin Mode" → `AdminScene` (Scribe Tent)

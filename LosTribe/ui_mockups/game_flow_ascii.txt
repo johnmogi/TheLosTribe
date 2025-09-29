@@ -1,0 +1,84 @@
+LOS TRIBE - GAME FLOW (ASCII MOCK)
+==================================
+
+          ┌───────────────────────┐
+          │  LOST TRIBE SPLASH   │
+          │  (Start Scene)       │
+          │  "New / Load / ..."  │
+          └─────────┬────────────┘
+                    │ New Game
+                    ▼
+      ┌─────────────────────────────┐
+      │ HERO CREATION SCENE        │
+      │ - Pick Hero Archetype      │
+      │ - Select Tarot Destiny     │
+      │ - Review Starting Deck     │
+      └────────────┬───────────────┘
+                   │ Begin Run
+                   ▼
+      ┌─────────────────────────────┐
+      │ BACKSTAGE GENERATION       │
+      │ - Dungeon Layout (7 floors)|
+      │ - Monsters / Events / Loot │
+      │ - Tarot Influences Applied │
+      │ (Uses `backstage-generator`)│
+      └────────────┬───────────────┘
+                   │ Seeded Run Data
+                   ▼
+      ┌─────────────────────────────┐
+      │ DUNGEON FLOOR LOOP         │
+      │ For each floor (1..7):     │
+      │  ┌───────────────────────┐ │
+      │  │ ROOM NAVIGATION       │ │
+      │  │ - Battle / Trap /     │ │
+      │  │   Treasure / Event    │ │
+      │  │ - Merchant / Rest     │ │
+      │  └─────────┬────────────┘ │
+      │            │ Enter Battle │
+      │            ▼              │
+      │  ┌───────────────────────┐ │
+      │  │ TURN-BASED COMBAT     │ │
+      │  │ - Tarot Card Plays    │ │
+      │  │ - Elemental d3 Dice   │ │
+      │  │ - Monster Behaviors   │ │
+      │  │ - Evolution Phase     │ │
+      │  └─────────┬────────────┘ │
+      │            │ Outcome      │
+      │            ▼              │
+      │  ┌───────────────────────┐ │
+      │  │ EVOLUTION MOMENT      │ │
+      │  │ - Card Transformations│ │
+      │  │ - Relic Awakening     │ │
+      │  │ - Stat Growth / Tarot │ │
+      │  │   Alignment           │ │
+      │  └─────────┬────────────┘ │
+      │            │ Continue     │
+      └────────────┴───────────────┘
+                   │
+                   ▼
+      ┌─────────────────────────────┐
+      │ FLOOR BOSS / GATEWAY       │
+      │ - Sacred Geometry Trials   │
+      │ - Major Arcana Guardian    │
+      └────────────┬───────────────┘
+                   │ Next Floor or Finale
+                   ▼
+      ┌─────────────────────────────┐
+      │ FINAL FLOOR (ENLIGHTENMENT)│
+      │ - Phoenix / Integration    │
+      │ - Multiple Win Paths:      │
+      │   • Escape with Loot       │
+      │   • Achieve Enlightenment  │
+      │   • Perfect Harmony        │
+      └────────────┬───────────────┘
+                   │ Results
+                   ▼
+      ┌─────────────────────────────┐
+      │ POST-RUN SUMMARY            │
+      │ - Stats & Unlocks           │
+      │ - Tarot Progress            │
+      │ - Seed for Next Run         │
+      └─────────────────────────────┘
+
+Admin Shortcut:
+  Splash Menu ► Admin Mode ► `AdminScene` (Backstage viewer)

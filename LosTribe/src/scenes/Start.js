@@ -5,41 +5,95 @@ export class Start extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', 'assets/space.png');
-        this.load.image('logo', 'assets/phaser.png');
-
-        //  The ship sprite is CC0 from https://ansimuz.itch.io - check out his other work!
-        this.load.spritesheet('ship', 'assets/spaceship.png', { frameWidth: 176, frameHeight: 96 });
+        // No external assets needed for the minimalist splash screen.
     }
 
     create() {
-        this.background = this.add.tileSprite(640, 360, 1280, 720, 'background');
+        const { width, height } = this.cameras.main;
 
-        const logo = this.add.image(640, 200, 'logo');
+        this.cameras.main.setBackgroundColor('#0d0b1e');
 
-        const ship = this.add.sprite(640, 360, 'ship');
+        this.add.text(width / 2, height * 0.22, 'LOST TRIBE', {
+            fontFamily: 'Cinzel, serif',
+            fontSize: '72px',
+            color: '#ffe082',
+            stroke: '#120922',
+            strokeThickness: 6
+        }).setOrigin(0.5);
 
-        ship.anims.create({
-            key: 'fly',
-            frames: this.anims.generateFrameNumbers('ship', { start: 0, end: 2 }),
-            frameRate: 15,
-            repeat: -1
+        this.add.text(width / 2, height * 0.32, 'Egyptian · Gypsy · Air Clan', {
+            fontFamily: 'Arial, sans-serif',
+            fontSize: '22px',
+            color: '#b3e5fc'
+        }).setOrigin(0.5);
+
+        const menuItems = [
+            {
+                label: '▶  New Game',
+                handler: () => this.launchNewGame()
+            },
+            {
+                label: '⮯  Load Game',
+                handler: () => this.launchLoadGame()
+            },
+            {
+                label: '⚙  Settings',
+                handler: () => this.launchSettings()
+            },
+            {
+                label: '🔮  Admin Mode',
+                handler: () => this.scene.start('AdminScene')
+            }
+        ];
+
+        const baseY = height * 0.48;
+        const spacing = 54;
+
+        menuItems.forEach((item, index) => {
+            const text = this.add.text(width / 2, baseY + index * spacing, item.label, {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '32px',
+                color: '#fafafa'
+            }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+
+            text.on('pointerover', () => {
+                text.setStyle({ color: '#ffca28' });
+            });
+
+            text.on('pointerout', () => {
+                text.setStyle({ color: '#fafafa' });
+            });
+
+            text.on('pointerdown', () => {
+                item.handler();
+            });
         });
 
-        ship.play('fly');
+        this.add.text(width / 2, height * 0.78, 'Tip: Admin Mode opens the Backstage Generator for content teams.', {
+            fontFamily: 'Courier New, monospace',
+            fontSize: '18px',
+            color: '#90caf9'
+        }).setOrigin(0.5);
 
-        this.tweens.add({
-            targets: logo,
-            y: 400,
-            duration: 1500,
-            ease: 'Sine.inOut',
-            yoyo: true,
-            loop: -1
-        });
+        this.add.text(width / 2, height * 0.92, '© 2025 Los Tribe Collective', {
+            fontFamily: 'Arial, sans-serif',
+            fontSize: '16px',
+            color: '#616161'
+        }).setOrigin(0.5);
     }
 
-    update() {
-        this.background.tilePositionX += 2;
+    launchNewGame() {
+        console.warn('[StartScene] New Game flow not yet connected.');
+        // TODO: Hook up when the primary gameplay scene is implemented.
     }
-    
+
+    launchLoadGame() {
+        console.warn('[StartScene] Load Game flow not yet connected.');
+        // TODO: Replace with load-game UI once persistence is available.
+    }
+
+    launchSettings() {
+        console.warn('[StartScene] Settings menu not yet connected.');
+        // TODO: Implement audio/video/difficulty settings screen.
+    }
 }

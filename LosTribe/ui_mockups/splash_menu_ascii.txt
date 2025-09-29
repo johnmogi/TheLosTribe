@@ -1,0 +1,21 @@
+LOST TRIBE MAIN MENU MOCKUP
+================================
+
++--------------------------------------------------------------+
+|                                                              |
+|                      ███   ███   ███                         |
+|                       LOST TRIBE                             |
+|                Egyptian • Gypsy • Air Clan                   |
+|                                                              |
+|  [▶]  New Game                                               |
+|  [⮯]  Load Game                                              |
+|  [⚙]  Settings                                               |
+|  [🔮]  Admin Mode (Backstage Generator)                       |
+|                                                              |
+|  ----------------------------------------------------------  |
+|  Tip: Admin Mode opens the Backstage Generator for the       |
+|       content and narrative teams.                           |
+|                                                              |
+|                       © 2025 Los Tribe Collective            |
+|                                                              |
++--------------------------------------------------------------+

@@ -10,6 +10,12 @@
       "path_discovery": true,
       "secret_room_chance": 0.3,
       "exploration_bonus": 1.5
+    },
+    "air_tribe_directive": {
+      "lore": "A dawn wanderer at the Nile’s lip, Ma’at feather and ankle chimes catching the sirocco.",
+      "story": "A caravan youth follows an ibis into dune currents, discovering hidden oases of wisdom.",
+      "monster": "Mirage Jackal that splits into sand doubles until true purpose is spoken.",
+      "hero": "Gypsy Dancer teaching leap-of-faith steps, granting a once-per-journey wind step."
     }
   },
   {
@@ -23,6 +29,12 @@
       "card_evolution": true,
       "elemental_mastery": 1.25,
       "transmutation_chance": 0.2
+    },
+    "air_tribe_directive": {
+      "lore": "Oasis conjurer weaving moonlit banners; sand whorls orbit a carved ankh staff.",
+      "story": "Nomad mage bargains with a dust devil to defend the tribe each new moon.",
+      "monster": "Sandbound Ifrit mirroring the party’s spells; only offerings redirect it.",
+      "hero": "Shai Scrollkeeper gifting a Feather Glyph, amplifying air-element abilities."
     }
   },
   {
@@ -36,6 +48,12 @@
       "false_structure_break": true,
       "revelation_power": 2,
       "awakening_chance": 0.4
+    },
+    "air_tribe_directive": {
+      "lore": "Lightning-struck obelisk shattering into levitating shards over a sandstorm vortex.",
+      "story": "Warlord’s hubris draws sky-fire, opening paths for the worthy.",
+      "monster": "Maelstrom Colossus, hurling thunder through redirecting glyph pillars.",
+      "hero": "Skyforge Mason reassembling structures mid-fight with stormward sigils."
     }
   },
   {
@@ -49,6 +67,12 @@
       "evolution_power": true,
       "card_evolution_chance": 0.5,
       "hero_transformation": true
+    },
+    "air_tribe_directive": {
+      "lore": "Masked psychopomp riding a skeletal ibis, cloak woven of twilight gusts.",
+      "story": "Guides souls across a midnight desert to rebirth in the dawn caravan.",
+      "monster": "Rebirth Scythe cleaving forms that resurrect differently unless honored.",
+      "hero": "Phoenix Harbinger granting a molting breeze to transform builds mid-run."
     }
   },
   {
@@ -62,6 +86,12 @@
       "foresight_vision": true,
       "pattern_recognition": 2,
       "cosmic_wisdom": 1.3
+    },
+    "air_tribe_directive": {
+      "lore": "Lantern-bearing seer atop a dune spire, guiding with light trapped in glass.",
+      "story": "He wanders alone to listen to the desert’s hidden voices in the night.",
+      "monster": "Dune Shade draining hope unless confronted with enlightened calm.",
+      "hero": "Lantern Scribe sharing a silent path that reveals secret passages."
     }
   },
   {
@@ -75,6 +105,12 @@
       "adaptive_transformation": true,
       "flow_state": true,
       "harmony_bonus": 1.5
+    },
+    "air_tribe_directive": {
+      "lore": "Copper-feather astrolabe spinning with caravan fortunes etched on each spoke.",
+      "story": "Wind traders spin the wheel before journeys, trusting destiny’s breath.",
+      "monster": "Serpent of Cycles shifting elemental forms each combat round.",
+      "hero": "Fate Weaver able to bend encounter outcomes once per run."
     }
   },
   {
@@ -88,6 +124,12 @@
       "elemental_harmony": true,
       "opposite_synergy": 2,
       "wholeness_bonus": 1.3
+    },
+    "air_tribe_directive": {
+      "lore": "Twin falcon riders entwined by Zephyr runes shimmering across their scarves.",
+      "story": "Sirocco Festival unites rival clans through synchronized aerial dances.",
+      "monster": "Sirocco Siren luring partners apart with discordant song.",
+      "hero": "Silver Caravan Twins granting bonded breath synergy boosts."
     }
   },
   {
@@ -101,6 +143,12 @@
       "dimensional_movement": true,
       "stellar_navigation": 2,
       "conscious_travel": true
+    },
+    "air_tribe_directive": {
+      "lore": "Sand skiff powered by bound zephyrs, reins braided with blue scarabs.",
+      "story": "A champion races storms to deliver treaties before the desert swallows them.",
+      "monster": "Tempest Charioteer stealing momentum unless wheels align with ley drafts.",
+      "hero": "Wind Corsair lending a gale rush charge that pierces enemy lines."
     }
   },
   {
@@ -114,6 +162,12 @@
       "sacred_geometry_mastery": true,
       "natural_flow": 1.5,
       "gentle_power": 2
+    },
+    "air_tribe_directive": {
+      "lore": "Nomad calming a sky-lion, hand resting on a collar of starlit beads.",
+      "story": "She tames beasts by sharing breath, teaching restraint over raw force.",
+      "monster": "Cyclone Manticore unleashing rage-fueled whirlwinds testing courage.",
+      "hero": "Khamsin Keeper empowering allies with sand-soothing mantras."
     }
   },
   {
@@ -127,6 +181,12 @@
       "cosmic_equilibrium": true,
       "sacred_proportions": true,
       "universal_harmony": 2
+    },
+    "air_tribe_directive": {
+      "lore": "Airborne scales suspended between twin obelisks, blades ringing in balance.",
+      "story": "Tribal mediators weigh disputes with Ma’at feathers and wind-carved scripts.",
+      "monster": "Gale Judge striking oathbreakers with precision gusts.",
+      "hero": "Equinox Arbiter granting a balanced zephyr that stabilizes buffs and debuffs."
     }
   },
   {
@@ -140,6 +200,12 @@
       "foresight_vision": true,
       "new_perspective": 2,
       "surrender_wisdom": true
+    },
+    "air_tribe_directive": {
+      "lore": "Mystic suspended within a wind vortex, cords tied to a floating palm.",
+      "story": "A pilgrim surrenders to the currents, gaining insight by letting go of control.",
+      "monster": "Time-Snag Djinn suspending turns until sacrifices are made.",
+      "hero": "Suspension Sage offering wind pause to reorder actions tactically."
     }
   },
   {
@@ -153,6 +219,12 @@
       "chain_recognition": true,
       "freedom_boon": 2,
       "self_mastery": true
+    },
+    "air_tribe_directive": {
+      "lore": "Chain-casting trickster with sand-serpents, tempting with mirage riches.",
+      "story": "A wanderer bargains for power, only to be bound by restless spirits.",
+      "monster": "Whispering Ifrit offering cursed boons in exchange for loyalty.",
+      "hero": "Chainbreaker Nomad teaching freedom gust to sever bindings and debuffs."
     }
   },
   {
@@ -166,6 +238,12 @@
       "elemental_fusion": true,
       "sacred_mixing": true,
       "divine_integration": 1.5
+    },
+    "air_tribe_directive": {
+      "lore": "Water-bearer blending dew and starlight between twin cups over a wind basin.",
+      "story": "She tempers storms by mixing the breaths of opposing tribes.",
+      "monster": "Elemental Alchemist switching elements unless stabilized by harmony.",
+      "hero": "Oasis Harmonist bestowing a balanced draft that fuses elemental attacks."
     }
   },
   {
@@ -179,6 +257,12 @@
       "stellar_consciousness": true,
       "permanent_growth": 2,
       "divine_light": true
+    },
+    "air_tribe_directive": {
+      "lore": "Stargazer with mirrored kohl casting constellations onto desert tents.",
+      "story": "She charts sky rivers to guide caravans through moonless nights.",
+      "monster": "Comet Wraith draining hope unless constellations are realigned.",
+      "hero": "Celestial Cartographer granting a star trail to reveal secrets and heal."
     }
   },
   {
@@ -192,6 +276,12 @@
       "subconscious_guidance": true,
       "lunar_cycles": true,
       "mystery_transformation": 0.3
+    },
+    "air_tribe_directive": {
+      "lore": "Veiled dreamcaller directing jackals across a moonlit tide of sand.",
+      "story": "Night martyrs plunge into the Dune Sea to retrieve forgotten memories.",
+      "monster": "Night Mirage Basilisk inducing hallucinations until truth is faced.",
+      "hero": "Dream Wanderer unlocking moonstep to traverse illusions safely."
     }
   },
   {
@@ -205,6 +295,12 @@
       "solar_consciousness": true,
       "ultimate_growth": 3,
       "complete_awakening": true
+    },
+    "air_tribe_directive": {
+      "lore": "Child of Ra wielding radiant kites, laughter scattering heat glimmers.",
+      "story": "Festival of Dawn celebrates renewal with solar drums and sky-fireworks.",
+      "monster": "Solar Roc blinding with flares unless shields reflect its radiance.",
+      "hero": "Daybreak Herald imbuing allies with sunrise pulse regeneration."
     }
   },
   {
@@ -218,6 +314,12 @@
       "cosmic_resonance": true,
       "harmony_mode": true,
       "higher_nature": 2.5
+    },
+    "air_tribe_directive": {
+      "lore": "Trumpeting seraph atop a dune altar, feathers summoning ancestral caravans.",
+      "story": "Ancestors call tribes to reckon with past promises at the Wind Basilica.",
+      "monster": "Echo Revenant resurrecting fallen foes unless absolved through rites.",
+      "hero": "Voice of the Past granting an ancestral gale that revives allies with buffs."
     }
   },
   {
@@ -231,6 +333,12 @@
       "cosmic_wholeness": true,
       "universal_integration": 3,
       "divine_completion": true
+    },
+    "air_tribe_directive": {
+      "lore": "Air Tribe matriarch dancing within a floating ring of four elemental totems.",
+      "story": "The caravan completes its skyward pilgrimage, bridging earth and heavens.",
+      "monster": "Horizon Serpent shifting arena boundaries until balance is achieved.",
+      "hero": "Sky Weaver gifting a circle of winds that unites elements for final mastery."
     }
   },
   {
@@ -244,6 +352,12 @@
       "sacred_creation": true,
       "natural_abundance": 1.5,
       "divine_fertility": true
+    },
+    "air_tribe_directive": {
+      "lore": "Sky-matriarch on a throne of woven kites, crowned with a falcon-feather circlet.",
+      "story": "She blesses newborns by releasing sky lanterns that chart their destinies.",
+      "monster": "Oasis Lamia guarding fertile lands, punishing greed with sandstorms.",
+      "hero": "Desert Midwife bearing healing breezes that restore stamina mid-journey."
     }
   },
   {
@@ -257,6 +371,12 @@
       "sacred_geometry": true,
       "divine_structure": 2,
       "cosmic_architecture": true
+    },
+    "air_tribe_directive": {
+      "lore": "Gold-armored chieftain beneath a canopy of map tapestries and bell anklets.",
+      "story": "He forges alliances by conquering tempests, securing caravan routes.",
+      "monster": "Granite War Djinn testing authority with crushing gusts and phalanx illusions.",
+      "hero": "Banner Hawk Marshall granting commanding current formation bonuses."
     }
   },
   {
@@ -270,6 +390,12 @@
       "sacred_knowledge": true,
       "divine_wisdom": 2,
       "cosmic_teaching": true
+    },
+    "air_tribe_directive": {
+      "lore": "Keeper of the Wind Shrine, staff tipped with a singing reed guarding sacred chants.",
+      "story": "He teaches travelers the Breath Codex to harmonize with desert spirits.",
+      "monster": "Chantbreaker Mummy silencing incantations unless tribute is offered.",
+      "hero": "Whispering Cantor whose hymns dispel curses and reveal hidden lore."
     }
   },
   {
@@ -283,6 +409,12 @@
       "divine_intuition": true,
       "cosmic_consciousness": 2,
       "sacred_wisdom": true
+    },
+    "air_tribe_directive": {
+      "lore": "Veiled oracle seated between lotus pillars, scrolls floating in suspended breeze.",
+      "story": "Nightly rites in a hidden tent reveal prophetic dream maps upon silk.",
+      "monster": "Sphinx of Whispers posing riddles that drain memory unless answered.",
+      "hero": "Moonlit Soothsayer sharing third-breath meditation to sense unseen traps."
     }
   }
 ]
