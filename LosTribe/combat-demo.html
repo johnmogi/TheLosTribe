@@ -41,6 +41,41 @@
             line-height: 1.3;
         }
 
+        .dice-summary {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .dice-column {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .dice-heading {
+            font-size: 0.85em;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #ffd54f;
+        }
+
+        .dice-values {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #ffe082;
+        }
+
+        .dice-pattern {
+            font-size: 0.85em;
+            color: #b0bec5;
+            margin-top: 4px;
+        }
+
         body {
             font-family: 'Courier New', monospace;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
@@ -313,9 +348,19 @@
 
                 <div class="dice-panel">
                     <h3>🎲 Elemental Dice</h3>
-                    <div>
-                        <button onclick="rollElementalDice()" id="diceBtn" disabled>Roll Dice</button>
+                    <div class="dice-summary">
+                        <div class="dice-column">
+                            <div class="dice-heading">Hero Dice</div>
+                            <div class="dice-values" id="hero-dice-values">-</div>
+                            <div class="dice-pattern" id="hero-dice-pattern">Roll to begin</div>
+                        </div>
+                        <div class="dice-column">
+                            <div class="dice-heading">Monster Dice</div>
+                            <div class="dice-values" id="monster-dice-values">-</div>
+                            <div class="dice-pattern" id="monster-dice-pattern">Roll to begin</div>
+                        </div>
                     </div>
+                    <div class="dice-pattern" id="clash-summary">Clash summary appears here.</div>
                     <div class="dice-log" id="dice-log">Rolls appear here.</div>
                 </div>
             </div>
@@ -337,739 +382,938 @@
     </div>
 
     <script type="module">
+        const ELEMENTS = ['fire', 'air', 'earth', 'water'];
+
+        class RNG {
+            constructor(seed = Date.now()) {
+                this.seed = seed >>> 0;
+            }
+
+            next() {
+                let x = this.seed;
+                x ^= x << 13;
+                x ^= x >>> 17;
+                x ^= x << 5;
+                this.seed = x >>> 0;
+                return this.seed / 0xffffffff;
+            }
+
+            pick(array) {
+                return array[Math.floor(this.next() * array.length)];
+            }
+        }
+
+        function roll3Elements(rng) {
+            return [rng.pick(ELEMENTS), rng.pick(ELEMENTS), rng.pick(ELEMENTS)];
+        }
+
+        function tallyDice(pool) {
+            return pool.reduce((acc, element) => {
+                acc[element] = (acc[element] || 0) + 1;
+                return acc;
+            }, {});
+        }
+
+        function detectPattern(pool) {
+            if (pool.length !== 3) {
+                throw new Error('detectPattern expects exactly 3 dice');
+            }
+
+            const counts = tallyDice(pool);
+            const unique = Object.keys(counts).length;
+
+            if (unique === 1) {
+                return { pattern: 'triple', element: pool[0], counts };
+            }
+
+            if (unique === 2) {
+                const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+                return {
+                    pattern: 'pair',
+                    pairElement: sorted[0][0],
+                    singleElement: sorted[1][0],
+                    counts
+                };
+            }
+
+            return { pattern: 'distinct', counts };
+        }
+
+        function checkAndConsumeDice(pool, requirement) {
+            if (!requirement) return { ok: true, pool: [...pool] };
+            const { element, count } = requirement;
+            const available = pool.filter(die => die === element).length;
+            if (available < count) return { ok: false, pool: [...pool] };
+
+            let removed = 0;
+            const remaining = [];
+            for (const die of pool) {
+                if (die === element && removed < count) {
+                    removed += 1;
+                    continue;
+                }
+                remaining.push(die);
+            }
+            return { ok: true, pool: remaining };
+        }
+
+        function hasSynergy(pool, requirement) {
+            if (!requirement) return false;
+            const { element, count } = requirement;
+            return pool.filter(die => die === element).length >= count;
+        }
+
+        const BEATS = {
+            fire: 'air',
+            air: 'earth',
+            earth: 'water',
+            water: 'fire'
+        };
+
+        function elementMultiplier(attackerElement, defenderAffinity) {
+            if (!attackerElement || attackerElement === 'neutral' || !defenderAffinity) {
+                return 1.0;
+            }
+            if (attackerElement === defenderAffinity) return 1.0;
+            if (BEATS[attackerElement] === defenderAffinity) return 1.5;
+            if (BEATS[defenderAffinity] === attackerElement) return 0.5;
+            return 1.0;
+        }
+
+        function patternContextFromRoll(patternResult) {
+            const context = { pattern: patternResult.pattern };
+
+            switch (patternResult.pattern) {
+                case 'triple':
+                    context.tripleElement = patternResult.element;
+                    context.tripleBonus = 8;
+                    break;
+                case 'pair':
+                    context.pairElement = patternResult.pairElement;
+                    context.pairBonus = 4;
+                    break;
+                case 'distinct':
+                    context.distinctBonus = 2;
+                    context.energyBonus = 1;
+                    break;
+                default:
+                    break;
+            }
+
+            return context;
+        }
+
+        function dominantElementFromPattern(patternResult, pool) {
+            if (patternResult.pattern === 'triple') return patternResult.element;
+            if (patternResult.pattern === 'pair') return patternResult.pairElement;
+            if (patternResult.pattern === 'distinct') return null;
+            return pool[0] || null;
+        }
+
+        function resolveClash(heroElement, monsterElement) {
+            const outcome = {
+                heroMultiplier: 1.0,
+                monsterMultiplier: 1.0,
+                heroShield: 0,
+                monsterShield: 0,
+                initiative: 'hero',
+                summary: 'No dominant elements'
+            };
+
+            if (heroElement && monsterElement) {
+                const heroAdvantage = elementMultiplier(heroElement, monsterElement);
+                const monsterAdvantage = elementMultiplier(monsterElement, heroElement);
+
+                if (heroAdvantage > monsterAdvantage) {
+                    outcome.heroMultiplier = 1.5;
+                    outcome.monsterMultiplier = 0.5;
+                    outcome.heroShield = 2;
+                    outcome.initiative = 'hero';
+                    outcome.summary = `${heroElement.toUpperCase()} overwhelms ${monsterElement.toUpperCase()}`;
+                } else if (monsterAdvantage > heroAdvantage) {
+                    outcome.heroMultiplier = 0.5;
+                    outcome.monsterMultiplier = 1.5;
+                    outcome.monsterShield = 2;
+                    outcome.initiative = 'monster';
+                    outcome.summary = `${monsterElement.toUpperCase()} overwhelms ${heroElement.toUpperCase()}`;
+                } else {
+                    outcome.summary = `${heroElement.toUpperCase()} clashes evenly with ${monsterElement.toUpperCase()}`;
+                }
+            } else if (heroElement && !monsterElement) {
+                outcome.heroMultiplier = 1.25;
+                outcome.heroShield = 1;
+                outcome.initiative = 'hero';
+                outcome.summary = `Hero attunes to ${heroElement.toUpperCase()} (initiative)`;
+            } else if (!heroElement && monsterElement) {
+                outcome.monsterMultiplier = 1.25;
+                outcome.monsterShield = 1;
+                outcome.initiative = 'monster';
+                outcome.summary = `Monster attunes to ${monsterElement.toUpperCase()} (initiative)`;
+            }
+
+            return outcome;
+        }
+
+        function resolveCard({
+            card,
+            actor,
+            target,
+            dicePool,
+            log,
+            clashMultiplier = 1.0,
+            patternContext = {},
+            targetShield = 0
+        }) {
+            const poolBeforePlay = [...dicePool];
+
+            if (card.energyCost > actor.energy) {
+                log.push(`${actor.name} lacks energy for ${card.name}`);
+                return {
+                    dicePool,
+                    damage: 0,
+                    mitigatedDamage: 0,
+                    shieldRemaining: targetShield
+                };
+            }
+
+            let poolAfterCost = [...dicePool];
+            let costPaid = true;
+
+            if (card.diceCost) {
+                const result = checkAndConsumeDice(poolAfterCost, card.diceCost);
+                if (!result.ok) {
+                    costPaid = false;
+                    poolAfterCost = [...dicePool];
+                } else {
+                    poolAfterCost = result.pool;
+                }
+            }
+
+            actor.energy -= card.energyCost;
+
+            let damage = card.baseDamage ?? 0;
+
+            if (card.diceSynergy && hasSynergy(poolBeforePlay, card.diceSynergy.if)) {
+                damage += card.diceSynergy.bonusDamage || 0;
+            }
+
+            if (patternContext.pairElement && card.element === patternContext.pairElement) {
+                damage += patternContext.pairBonus || 0;
+            }
+
+            if (patternContext.tripleElement && !patternContext.tripleConsumed && card.element === patternContext.tripleElement) {
+                damage += patternContext.tripleBonus || 0;
+                patternContext.tripleConsumed = true;
+            }
+
+            if (patternContext.distinctBonus && !patternContext.distinctConsumed) {
+                damage += patternContext.distinctBonus;
+                patternContext.distinctConsumed = true;
+            }
+
+            damage = Math.floor(damage * clashMultiplier);
+
+            const element = card.element === 'neutral' ? null : card.element;
+            const elementalMultiplier = elementMultiplier(element, target.elementAffinity);
+            const rawDamage = Math.max(0, Math.floor((damage - target.def) * elementalMultiplier));
+
+            const mitigatedDamage = Math.max(0, rawDamage - targetShield);
+            const shieldRemaining = Math.max(0, targetShield - rawDamage);
+            target.hp = Math.max(0, target.hp - mitigatedDamage);
+
+            if (!costPaid && card.diceCost) {
+                log.push(`${actor.name} plays ${card.name} without required dice (${card.diceCost.element} x${card.diceCost.count}) → base effect only.`);
+            }
+
+            log.push(`${actor.name} plays ${card.name} → ${mitigatedDamage} dmg (raw ${rawDamage}, shield blocked ${rawDamage - mitigatedDamage}, clash x${clashMultiplier.toFixed(2)}, element x${elementalMultiplier.toFixed(2)})`);
+
+            return {
+                dicePool: poolAfterCost,
+                damage: rawDamage,
+                mitigatedDamage,
+                shieldRemaining
+            };
+        }
+
         const CARD_DEFINITIONS = {
             c_strike: {
                 id: 'c_strike',
                 name: 'Basic Strike',
-                cost: 1,
                 type: 'attack',
-                damage: 6,
-                description: 'Deal 6 damage to an enemy.'
+                energyCost: 1,
+                element: 'earth',
+                baseDamage: 6,
+                description: 'Deal 6 damage to a single foe.',
+                diceSynergy: null,
+                diceCost: null
             },
             c_guard: {
                 id: 'c_guard',
-                name: 'Basic Guard',
-                cost: 1,
+                name: 'Stone Guard',
                 type: 'defense',
-                defense: 5,
-                description: 'Gain 5 block this turn.'
+                energyCost: 1,
+                element: 'earth',
+                block: 6,
+                description: 'Gain 6 ward this turn.',
+                diceSynergy: { if: { element: 'earth', count: 1 }, bonusBlock: 3 },
+                diceCost: null
             },
             c_focus: {
                 id: 'c_focus',
                 name: 'Focus Breath',
-                cost: 0,
                 type: 'utility',
-                effect: 'energy',
-                energy: 1,
-                description: 'Gain 1 energy.'
+                energyCost: 0,
+                element: 'air',
+                energyGain: 1,
+                description: 'Gain 1 energy.',
+                diceSynergy: { if: { element: 'air', count: 1 }, bonusEnergy: 1 },
+                diceCost: null
             },
             c_lantern: {
                 id: 'c_lantern',
                 name: 'Lantern Glow',
-                cost: 2,
                 type: 'utility',
-                effect: 'heal',
+                energyCost: 2,
+                element: 'fire',
                 heal: 8,
-                description: 'Heal 8 HP.'
+                description: 'Heal 8 HP.',
+                diceSynergy: { if: { element: 'fire', count: 2 }, bonusHeal: 4 },
+                diceCost: { element: 'fire', count: 1 }
             },
             c_cyclone: {
                 id: 'c_cyclone',
                 name: 'Cyclone Slash',
-                cost: 2,
                 type: 'attack',
-                damage: 10,
-                description: 'A sweeping 10 damage strike.'
+                energyCost: 2,
+                element: 'air',
+                baseDamage: 10,
+                description: 'Deal 10 damage. Pairs love the wind.',
+                diceSynergy: { if: { element: 'air', count: 1 }, bonusDamage: 4 },
+                diceCost: null
             }
         };
 
-        const cardLibrary = Object.values(CARD_DEFINITIONS);
-        const cardMap = new Map(cardLibrary.map(card => [card.id, card]));
+        const cardMap = new Map(Object.entries(CARD_DEFINITIONS));
 
-        class CombatSystem {
-            constructor(hero, monsters, roomTarot) {
-                this.hero = hero;
-                this.monsters = monsters;
-                this.roomTarot = roomTarot;
-                this.turn = 'hero';
-                this.combatLog = [];
-                this.isActive = false;
-                this.onTurnChange = null;
+        const ELEMENT_AFFINITIES = {
+            m_mirage_jackal: 'air',
+            m_sand_wraith: 'earth',
+            m_dust_serpent: 'fire'
+        };
+
+        class ElementalCombatDemo {
+            constructor() {
+                this.rng = new RNG(0xC0FFEE);
+
+                this.statusEl = document.getElementById('status');
+                this.startBtn = document.getElementById('startBtn');
+                this.endTurnBtn = document.getElementById('endTurnBtn');
+                this.heroHpEl = document.getElementById('hero-hp');
+                this.heroEnergyEl = document.getElementById('hero-energy');
+                this.heroDefenseEl = document.getElementById('hero-defense');
+                this.heroHandEl = document.getElementById('hero-hand');
+                this.monsterListEl = document.getElementById('monster-list');
+                this.combatLogEl = document.getElementById('combat-log');
+                this.drawCountEl = document.getElementById('draw-count');
+                this.discardCountEl = document.getElementById('discard-count');
+                this.exhaustCountEl = document.getElementById('exhaust-count');
+                this.drawListEl = document.getElementById('draw-list');
+                this.discardListEl = document.getElementById('discard-list');
+                this.exhaustListEl = document.getElementById('exhaust-list');
+                this.monsterCountSelect = document.getElementById('monster-count');
+                this.showPileCardsCheckbox = document.getElementById('show-pile-cards');
+                this.diceLogEl = document.getElementById('dice-log');
+                this.heroDiceValuesEl = document.getElementById('hero-dice-values');
+                this.heroDicePatternEl = document.getElementById('hero-dice-pattern');
+                this.monsterDiceValuesEl = document.getElementById('monster-dice-values');
+                this.monsterDicePatternEl = document.getElementById('monster-dice-pattern');
+                this.clashSummaryEl = document.getElementById('clash-summary');
+
+                this.currentRun = null;
+                this.hero = null;
+                this.monsters = [];
+                this.turnState = null;
+                this.logEntries = [];
+                this.heroHand = [];
+                this.heroDrawPile = [];
+                this.heroDiscardPile = [];
+                this.heroExhaustPile = [];
+                this.monsterCount = Number(this.monsterCountSelect.value) || 1;
+            }
+
+            init() {
+                this.monsterCountSelect.addEventListener('change', (event) => {
+                    this.monsterCount = Number(event.target.value) || 1;
+                });
+
+                this.showPileCardsCheckbox.addEventListener('change', () => {
+                    const show = this.showPileCardsCheckbox.checked;
+                    this.drawListEl.hidden = !show;
+                    this.discardListEl.hidden = !show;
+                    this.exhaustListEl.hidden = !show;
+                    this.updatePileDisplays();
+                });
+
+                window.generateNewRun = () => this.generateNewRun();
+                window.startCombat = () => this.startCombat();
+                window.endTurn = () => this.endTurn();
+
+                console.log('⚔️ Combat System Demo ready (elemental dice mode).');
+                console.log('🎭 Click "Generate New Run" to begin.');
+            }
+
+            generateNewRun() {
+                this.currentRun = this.createMockRun();
+                this.statusEl.textContent = 'Run prepared. Ready for combat!';
+                this.startBtn.disabled = false;
+                this.endTurnBtn.disabled = true;
+                this.hero = null;
+                this.monsters = [];
+                this.turnState = null;
+                this.logEntries = [];
+                this.heroHand = [];
+                this.heroDrawPile = [];
+                this.heroDiscardPile = [];
+                this.heroExhaustPile = [];
+                this.renderLog();
+                this.updateOutOfCombatDisplay();
+                this.clearDiceDisplay();
+                this.updateHandDisplay();
+                this.updatePileDisplays();
+                this.renderMonsters();
             }
 
             startCombat() {
-                this.isActive = true;
-                this.combatLog = [];
-                this.log(`Combat begins in ${this.roomTarot} chamber!`);
-                this.log(`${this.hero.name} faces ${this.monsters.length} enemies.`);
-
-                this.hero.energy = this.hero.maxEnergy;
-
-                this.monsters.forEach(monster => {
-                    monster.currentHP = monster.stats.hp;
-                    monster.intent = this.calculateMonsterIntent(monster);
-                });
-            }
-
-            calculateMonsterIntent() {
-                const intents = [
-                    { action: 'attack', weight: 70 },
-                    { action: 'defend', weight: 20 },
-                    { action: 'special', weight: 10 }
-                ];
-
-                const total = intents.reduce((sum, item) => sum + item.weight, 0);
-                let random = Math.random() * total;
-
-                for (const item of intents) {
-                    if (random < item.weight) return item;
-                    random -= item.weight;
-                }
-
-                return intents[intents.length - 1];
-            }
-
-            playCard(card, target = null) {
-                if (this.turn !== 'hero' || !this.isActive) return false;
-
-                if (this.hero.energy < card.cost) {
-                    this.log(`${this.hero.name} doesn't have enough energy!`);
-                    return false;
-                }
-
-                this.hero.energy -= card.cost;
-
-                let effectResult = '';
-
-                switch (card.type) {
-                    case 'attack':
-                        effectResult = this.playAttackCard(card, target);
-                        break;
-                    case 'defense':
-                        effectResult = this.playDefenseCard(card);
-                        break;
-                    case 'utility':
-                        effectResult = this.playUtilityCard(card, target);
-                        break;
-                }
-
-                this.log(`${this.hero.name} plays ${card.name}: ${effectResult}`);
-
-                if (this.checkVictory()) {
-                    this.endCombat('victory');
-                    return true;
-                }
-
-                this.monsterTurn();
-                return true;
-            }
-
-            playAttackCard(card, target) {
-                if (!target) target = this.getRandomMonster();
-                if (!target) return 'No targets available';
-
-                const damage = this.calculateDamage(card.damage || 0, this.hero.stats.atk, target.stats.def);
-                target.currentHP -= damage;
-                if (target.currentHP < 0) target.currentHP = 0;
-                return `Deals ${damage} damage to ${target.name}`;
-            }
-
-            playDefenseCard(card) {
-                const defense = card.defense || 6;
-                this.hero.currentStats.def += defense;
-                return `Gains ${defense} defense`;
-            }
-
-            playUtilityCard(card) {
-                switch (card.effect) {
-                    case 'heal':
-                        const healAmount = Math.min(card.heal || 0, this.hero.maxStats.hp - this.hero.currentStats.hp);
-                        this.hero.currentStats.hp += healAmount;
-                        return `Heals ${healAmount} HP`;
-                    case 'energy':
-                        this.hero.energy = Math.min(this.hero.maxEnergy, this.hero.energy + (card.energy || 0));
-                        return `Gains ${card.energy || 0} energy`;
-                    case 'draw':
-                        return `Prepares to draw ${card.draw || 0} cards`;
-                    default:
-                        return 'Feels empowered';
-                }
-            }
-
-            calculateDamage(base, attackerAtk, defenderDef) {
-                const modifiedDamage = base + attackerAtk * 0.1;
-                const reducedDamage = Math.max(1, modifiedDamage - defenderDef * 0.05);
-                return Math.floor(reducedDamage);
-            }
-
-            monsterTurn() {
-                this.turn = 'monster';
-
-                this.monsters.forEach((monster, index) => {
-                    if (monster.currentHP <= 0) return;
-
-                    setTimeout(() => {
-                        if (!this.isActive) return;
-                        this.executeMonsterAction(monster);
-                    }, index * 600);
-                });
-
-                setTimeout(() => {
-                    if (!this.isActive) return;
-                    this.turn = 'hero';
-                    this.hero.energy = Math.min(this.hero.maxEnergy, this.hero.energy + 2);
-                    if (typeof this.onTurnChange === 'function') {
-                        this.onTurnChange(this.getCombatState());
-                    }
-                }, this.monsters.length * 600 + 400);
-            }
-
-            executeMonsterAction(monster) {
-                if (!this.isActive) return;
-                if (monster.currentHP <= 0) return;
-
-                const action = monster.intent.action;
-                if (action === 'attack') {
-                    const base = Math.round(monster.stats.atk * 0.8);
-                    const damage = this.calculateDamage(base, monster.stats.atk, this.hero.currentStats.def);
-                    this.hero.currentStats.hp -= damage;
-                    this.log(`${monster.name} attacks for ${damage} damage!`);
-                } else if (action === 'defend') {
-                    monster.currentHP = Math.min(monster.stats.hp, monster.currentHP + 3);
-                    this.log(`${monster.name} braces itself!`);
-                } else {
-                    const damage = Math.floor(monster.stats.atk * 1.2);
-                    this.hero.currentStats.hp -= damage;
-                    this.log(`${monster.name} unleashes a special for ${damage} damage!`);
-                }
-
-                if (this.hero.currentStats.hp <= 0) {
-                    this.endCombat('defeat');
+                if (!this.currentRun) return;
+                const battleRoom = this.currentRun.dungeon.allRooms.find(room => room.type === 'battle');
+                if (!battleRoom || !battleRoom.monsters || battleRoom.monsters.length === 0) {
+                    this.statusEl.textContent = 'No monsters to fight!';
                     return;
                 }
 
-                monster.intent = this.calculateMonsterIntent(monster);
+                this.hero = this.prepareHero(this.currentRun.hero);
+                this.monsters = battleRoom.monsters
+                    .slice(0, Math.max(1, Math.min(this.monsterCount, battleRoom.monsters.length)))
+                    .map(monster => this.prepareMonster(monster));
+
+                this.heroDrawPile = this.shuffle(this.hero.deck.slice());
+                this.heroDiscardPile = [];
+                this.heroExhaustPile = [];
+                this.heroHand = this.drawCards(5);
+
+                this.logEntries = [];
+                this.log(`Combat begins in ${battleRoom.tarot} chamber!`);
+                this.log(`${this.hero.name} faces ${this.monsters.length} enemies.`);
+
+                this.statusEl.textContent = 'Combat in progress...';
+                this.startBtn.disabled = true;
+                this.endTurnBtn.disabled = false;
+
+                this.beginTurn();
+                this.renderAll();
             }
 
-            getRandomMonster() {
-                const alive = this.monsters.filter(m => m.currentHP > 0);
-                if (alive.length === 0) return null;
-                return alive[Math.floor(Math.random() * alive.length)];
-            }
+            endTurn() {
+                if (!this.turnState) return;
+                this.turnState.active = false;
 
-            checkVictory() {
-                return this.monsters.every(monster => monster.currentHP <= 0);
-            }
-
-            endCombat(result) {
-                this.isActive = false;
-                if (this.onCombatEnd) {
-                    this.onCombatEnd(result);
+                if (!this.turnState.monsterActed) {
+                    this.monsterPhase();
                 }
 
-                if (result === 'victory') {
-                    this.log(`Victory! ${this.hero.name} triumphs.`);
-                } else {
-                    this.log(`Defeat! ${this.hero.name} has fallen.`);
+                if (this.hero && this.hero.hp <= 0) {
+                    this.finishCombat('defeat');
+                    this.renderAll();
+                    return;
                 }
 
-                if (typeof this.onTurnChange === 'function') {
-                    this.onTurnChange(this.getCombatState());
+                if (this.monsters.every(monster => monster.hp <= 0)) {
+                    this.finishCombat('victory');
+                    this.renderAll();
+                    return;
                 }
+
+                this.beginTurn();
+                this.renderAll();
             }
 
-            log(message) {
-                this.combatLog.push({
-                    message,
-                    timestamp: Date.now()
+            beginTurn() {
+                if (!this.hero || this.hero.hp <= 0) {
+                    this.finishCombat('defeat');
+                    return;
+                }
+
+                if (this.monsters.every(monster => monster.hp <= 0)) {
+                    this.finishCombat('victory');
+                    return;
+                }
+
+                const heroDice = roll3Elements(this.rng);
+                const monsterDice = roll3Elements(this.rng);
+
+                const heroPattern = detectPattern(heroDice);
+                const monsterPattern = detectPattern(monsterDice);
+
+                const heroPatternContext = patternContextFromRoll(heroPattern);
+                const monsterPatternContext = patternContextFromRoll(monsterPattern);
+
+                this.hero.energy = this.hero.maxEnergy + (heroPatternContext.energyBonus || 0);
+                this.monsters.forEach(monster => {
+                    monster.energy = monster.maxEnergy + (monsterPatternContext.energyBonus || 0);
                 });
 
-                if (this.combatLog.length > 30) {
-                    this.combatLog.shift();
-                }
-            }
+                const heroElement = dominantElementFromPattern(heroPattern, heroDice);
+                const monsterElement = dominantElementFromPattern(monsterPattern, monsterDice);
 
-            getCombatState() {
-                return {
-                    hero: {
-                        name: this.hero.name,
-                        hp: this.hero.currentStats.hp,
-                        maxHp: this.hero.maxStats.hp,
-                        energy: this.hero.energy,
-                        maxEnergy: this.hero.maxEnergy,
-                        defense: this.hero.currentStats.def
-                    },
-                    monsters: this.monsters.map(monster => ({
-                        name: monster.name,
-                        hp: monster.currentHP,
-                        maxHp: monster.stats.hp,
-                        intent: monster.intent
-                    })),
-                    currentTurn: this.turn,
-                    isActive: this.isActive,
-                    log: this.combatLog.slice(-6)
+                const clashOutcome = resolveClash(heroElement, monsterElement);
+
+                this.turnState = {
+                    active: true,
+                    heroDiceOriginal: heroDice,
+                    monsterDiceOriginal: monsterDice,
+                    heroDicePool: [...heroDice],
+                    monsterDicePool: [...monsterDice],
+                    heroPatternContext,
+                    monsterPatternContext,
+                    clashOutcome,
+                    heroShield: clashOutcome.heroShield || 0,
+                    monsterShield: clashOutcome.monsterShield || 0,
+                    heroActed: false,
+                    monsterActed: false
                 };
-            }
-        }
 
-        function generateMockRun() {
-            const heroBaseStats = { hp: 45, atk: 6, def: 2, spd: 5 };
-            const hero = {
-                id: 'h_nomad',
-                name: 'Nomad Windwalker',
-                class: 'Seeker',
-                level: 1,
-                stats: { ...heroBaseStats },
-                maxStats: { ...heroBaseStats },
-                currentStats: { ...heroBaseStats },
-                energy: 3,
-                maxEnergy: 3,
-                deck: [
-                    'c_strike',
-                    'c_strike',
-                    'c_strike',
-                    'c_guard',
-                    'c_guard',
-                    'c_strike',
-                    'c_guard',
-                    'c_focus',
-                    'c_cyclone',
-                    'c_lantern'
-                ]
-            };
+                this.log(`Hero dice → [${heroDice.join(', ')}] (${heroPattern.pattern})`);
+                this.log(`Monster dice → [${monsterDice.join(', ')}] (${monsterPattern.pattern})`);
+                this.log(`Clash: ${clashOutcome.summary}. Initiative: ${clashOutcome.initiative}.`);
 
-            const monsters = [
-                {
-                    id: 'm_mirage_jackal',
-                    name: 'Mirage Jackal',
-                    stats: { hp: 22, atk: 5, def: 1, spd: 4 }
-                },
-                {
-                    id: 'm_sand_wraith',
-                    name: 'Sand Wraith',
-                    stats: { hp: 18, atk: 4, def: 2, spd: 5 }
-                },
-                {
-                    id: 'm_dust_serpent',
-                    name: 'Dust Serpent',
-                    stats: { hp: 20, atk: 4, def: 1, spd: 7 }
+                if (clashOutcome.initiative === 'monster') {
+                    this.monsterPhase();
                 }
-            ];
 
-            return {
-                hero,
-                dungeon: {
-                    allRooms: [
-                        {
-                            id: 'mock_battle_room',
-                            type: 'battle',
-                            tarot: 'The Magician',
-                            monsters
+                this.renderDice();
+                this.renderStats();
+            }
+
+            monsterPhase() {
+                if (!this.turnState || this.turnState.monsterActed) return;
+                const monster = this.monsters.find(m => m.hp > 0);
+                if (!monster) return;
+
+                const dominantElement = this.turnState.monsterPatternContext.tripleElement
+                    || this.turnState.monsterPatternContext.pairElement
+                    || monster.intent.element
+                    || monster.elementAffinity;
+
+                const monsterCard = {
+                    id: `intent_${monster.intent.type}`,
+                    name: monster.intent.name,
+                    energyCost: 0,
+                    element: dominantElement,
+                    baseDamage: monster.intent.value,
+                    diceSynergy: null,
+                    diceCost: null
+                };
+
+                monster.energy = monster.maxEnergy;
+
+                const result = resolveCard({
+                    card: monsterCard,
+                    actor: monster,
+                    target: this.hero,
+                    dicePool: this.turnState.monsterDicePool,
+                    log: this.logEntries,
+                    clashMultiplier: this.turnState.clashOutcome.monsterMultiplier,
+                    patternContext: this.turnState.monsterPatternContext,
+                    targetShield: this.turnState.heroShield
+                });
+
+                this.turnState.monsterDicePool = result.dicePool;
+                this.turnState.heroShield = result.shieldRemaining;
+                this.turnState.monsterActed = true;
+                this.turnState.active = false;
+
+                if (this.hero.hp <= 0) {
+                    this.finishCombat('defeat');
+                }
+            }
+
+            playHeroCard(card, handIndex) {
+                if (!this.turnState || !this.turnState.active) return;
+                if (this.hero.energy < card.energyCost) {
+                    this.log(`${this.hero.name} lacks energy for ${card.name}.`);
+                    this.renderAll();
+                    return;
+                }
+
+                let resolved = false;
+
+                if (card.type === 'attack') {
+                    const target = this.monsters.find(m => m.hp > 0);
+                    if (!target) {
+                        this.log('No targets remain.');
+                    } else {
+                        const result = resolveCard({
+                            card,
+                            actor: this.hero,
+                            target,
+                            dicePool: this.turnState.heroDicePool,
+                            log: this.logEntries,
+                            clashMultiplier: this.turnState.clashOutcome.heroMultiplier,
+                            patternContext: this.turnState.heroPatternContext,
+                            targetShield: this.turnState.monsterShield
+                        });
+                        this.turnState.heroDicePool = result.dicePool;
+                        this.turnState.monsterShield = result.shieldRemaining;
+                        resolved = true;
+                        if (target.hp <= 0) {
+                            this.log(`${target.name} is defeated!`);
                         }
-                    ]
-                }
-            };
-        }
-
-        // Global state
-        let currentRunData = null;
-        let combatSystem = null;
-        let heroHand = [];
-        let heroDrawPile = [];
-        let heroDiscardPile = [];
-        let heroBaseDeck = [];
-        let heroExhaustPile = [];
-        let monsterCount = 2;
-        let pendingDiceElements = [];
-
-        // DOM elements
-        const statusEl = document.getElementById('status');
-        const startBtn = document.getElementById('startBtn');
-        const endTurnBtn = document.getElementById('endTurnBtn');
-        const heroHpEl = document.getElementById('hero-hp');
-        const heroEnergyEl = document.getElementById('hero-energy');
-        const heroDefenseEl = document.getElementById('hero-defense');
-        const heroHandEl = document.getElementById('hero-hand');
-        const monsterListEl = document.getElementById('monster-list');
-        const combatLogEl = document.getElementById('combat-log');
-        const drawCountEl = document.getElementById('draw-count');
-        const discardCountEl = document.getElementById('discard-count');
-        const exhaustCountEl = document.getElementById('exhaust-count');
-        const drawListEl = document.getElementById('draw-list');
-        const discardListEl = document.getElementById('discard-list');
-        const exhaustListEl = document.getElementById('exhaust-list');
-        const monsterCountSelect = document.getElementById('monster-count');
-        const showPileCardsCheckbox = document.getElementById('show-pile-cards');
-        const diceLogEl = document.getElementById('dice-log');
-        const diceBtn = document.getElementById('diceBtn');
-        monsterCountSelect.addEventListener('change', (event) => {
-            monsterCount = Number(event.target.value) || 1;
-        });
-
-        showPileCardsCheckbox.addEventListener('change', () => {
-            const show = showPileCardsCheckbox.checked;
-            drawListEl.hidden = !show;
-            discardListEl.hidden = !show;
-            exhaustListEl.hidden = !show;
-            updatePileDisplays();
-        });
-
-        window.generateNewRun = function () {
-            console.log('🎭 Generating mock run...');
-            currentRunData = generateMockRun();
-
-            const battleRoom = currentRunData.dungeon.allRooms.find(room => room.type === 'battle');
-            if (battleRoom && battleRoom.monsters && battleRoom.monsters.length > 0) {
-                statusEl.textContent = `Ready for combat in ${battleRoom.tarot} chamber!`;
-                startBtn.disabled = false;
-            } else {
-                statusEl.textContent = 'No battle room found in the mock run.';
-            }
-
-            updateDisplay();
-        };
-
-        window.startCombat = function () {
-            if (!currentRunData) return;
-
-            const battleRoom = currentRunData.dungeon.allRooms.find(room => room.type === 'battle');
-            if (!battleRoom || !battleRoom.monsters || battleRoom.monsters.length === 0) {
-                statusEl.textContent = 'No monsters to fight!';
-                return;
-            }
-
-            const heroForCombat = prepareHero(currentRunData.hero);
-            const monstersForCombat = battleRoom.monsters
-                .slice(0, Math.max(1, Math.min(monsterCount, battleRoom.monsters.length)))
-                .map(prepareMonster);
-
-            combatSystem = new CombatSystem(heroForCombat, monstersForCombat, battleRoom.tarot);
-            combatSystem.onCombatEnd = (result) => {
-                if (result === 'victory') {
-                    statusEl.textContent = 'Victory! Combat completed.';
-                    statusEl.className = 'status victory';
-                } else {
-                    statusEl.textContent = 'Defeat! Hero has fallen.';
-                    statusEl.className = 'status defeat';
-                }
-                startBtn.disabled = false;
-                endTurnBtn.disabled = true;
-            };
-            combatSystem.onTurnChange = () => {
-                updateCombatDisplay();
-            };
-
-            heroBaseDeck = heroForCombat.deck.slice();
-            heroDrawPile = shuffle(heroBaseDeck.slice());
-            heroDiscardPile = [];
-            heroExhaustPile = [];
-            pendingDiceElements = [];
-
-            combatSystem.startCombat();
-            statusEl.textContent = 'Combat in progress...';
-            statusEl.className = 'status';
-            startBtn.disabled = true;
-            endTurnBtn.disabled = false;
-            diceBtn.disabled = false;
-
-            heroHand = drawCards(5);
-            fillHand();
-            updateCombatDisplay();
-            updatePileDisplays();
-        };
-
-        window.endTurn = function () {
-            if (!combatSystem || !combatSystem.isActive) return;
-            if (pendingDiceElements.length > 0) {
-                logDice(`Unresolved dice (${pendingDiceElements.join(', ')}) fade away.`);
-                pendingDiceElements = [];
-            }
-            combatSystem.monsterTurn();
-            updateCombatDisplay();
-        };
-
-        window.rollElementalDice = function () {
-            if (!combatSystem || !combatSystem.isActive) return;
-            const diceFaces = ['fire', 'water', 'earth', 'air', 'light', 'shadow'];
-            const result = diceFaces[Math.floor(Math.random() * diceFaces.length)];
-            pendingDiceElements.push(result);
-            logDice(`Rolled ${result.toUpperCase()}!`);
-
-            applyDiceEffect(result);
-            if (pendingDiceElements.length > 2) {
-                pendingDiceElements.shift();
-            }
-        };
-
-        function updateDisplay() {
-            if (!currentRunData) return;
-            const hero = currentRunData.hero;
-            heroHpEl.textContent = `${hero.stats.hp}/${hero.maxStats.hp}`;
-            heroEnergyEl.textContent = `${hero.energy}/${hero.maxEnergy}`;
-            heroDefenseEl.textContent = hero.stats.def;
-        }
-
-        function updateCombatDisplay() {
-            if (!combatSystem) return;
-
-            const state = combatSystem.getCombatState();
-            heroHpEl.textContent = `${state.hero.hp}/${state.hero.maxHp}`;
-            heroEnergyEl.textContent = `${state.hero.energy}/${state.hero.maxEnergy}`;
-            heroDefenseEl.textContent = state.hero.defense;
-
-            monsterListEl.innerHTML = '';
-            state.monsters.forEach(monster => {
-                const monsterEl = document.createElement('div');
-                monsterEl.className = 'monster-item';
-                monsterEl.innerHTML = `
-                    <div class="monster-info">
-                        <strong>${monster.name}</strong><br>
-                        <span class="monster-hp">HP: ${monster.hp}/${monster.maxHp}</span>
-                    </div>
-                    <div class="monster-intent">${monster.intent.action}</div>
-                `;
-                monsterListEl.appendChild(monsterEl);
-            });
-
-            combatLogEl.innerHTML = '';
-            state.log.forEach(entry => {
-                const logEntry = document.createElement('div');
-                logEntry.className = 'log-entry';
-                logEntry.textContent = entry.message;
-                combatLogEl.appendChild(logEntry);
-            });
-            combatLogEl.scrollTop = combatLogEl.scrollHeight;
-
-            updateHandDisplay();
-            endTurnBtn.disabled = state.currentTurn !== 'hero' || !state.isActive;
-            updatePileDisplays();
-        }
-
-        function updateHandDisplay() {
-            heroHandEl.innerHTML = '';
-
-            heroHand.forEach((card, index) => {
-                const cardEl = document.createElement('div');
-                cardEl.className = `card ${combatSystem && combatSystem.hero.energy < card.cost ? 'disabled' : ''}`;
-                cardEl.innerHTML = `
-                    <div class="card-cost">${card.cost}</div>
-                    <strong>${card.name}</strong><br>
-                    <small>${card.description || ''}</small><br>
-                    <small>Type: ${card.type}</small>
-                `;
-
-                if (combatSystem && combatSystem.isActive && combatSystem.turn === 'hero' && combatSystem.hero.energy >= card.cost) {
-                    cardEl.onclick = () => playCard(card, index);
+                    }
+                } else if (card.type === 'defense') {
+                    let block = card.block || 0;
+                    if (card.diceSynergy && this.turnState.heroDicePool.filter(e => e === card.diceSynergy.if.element).length >= card.diceSynergy.if.count) {
+                        block += card.diceSynergy.bonusBlock || 0;
+                    }
+                    this.hero.energy -= card.energyCost;
+                    this.turnState.heroShield += block;
+                    this.log(`${this.hero.name} raises a ward for ${block} damage.`);
+                    resolved = true;
+                } else if (card.type === 'utility') {
+                    this.hero.energy -= card.energyCost;
+                    if (card.energyGain) {
+                        let bonus = 0;
+                        if (card.diceSynergy && this.turnState.heroDicePool.filter(e => e === card.diceSynergy.if.element).length >= card.diceSynergy.if.count) {
+                            bonus = card.diceSynergy.bonusEnergy || 0;
+                        }
+                        const gain = card.energyGain + bonus;
+                        this.hero.energy = Math.min(this.hero.maxEnergy, this.hero.energy + gain);
+                        this.log(`${this.hero.name} gains ${gain} energy.`);
+                    }
+                    if (card.heal) {
+                        let bonusHeal = 0;
+                        if (card.diceSynergy && this.turnState.heroDicePool.filter(e => e === card.diceSynergy.if.element).length >= card.diceSynergy.if.count) {
+                            bonusHeal = card.diceSynergy.bonusHeal || 0;
+                        }
+                        const healAmount = card.heal + bonusHeal;
+                        this.hero.hp = Math.min(this.hero.maxHp, this.hero.hp + healAmount);
+                        this.log(`${this.hero.name} heals ${healAmount} HP.`);
+                    }
+                    resolved = true;
                 }
 
-                heroHandEl.appendChild(cardEl);
-            });
-        }
-
-        function playCard(card, index) {
-            if (!combatSystem || !combatSystem.isActive) return;
-
-            const target = combatSystem.getRandomMonster();
-            const success = combatSystem.playCard(applyDiceToCard(card), target);
-
-            if (success) {
-                const [usedCard] = heroHand.splice(index, 1);
-                if (usedCard) {
-                    heroDiscardPile.push(usedCard.id || usedCard.name);
-                    if (usedCard.effect === 'draw' && usedCard.draw) {
-                        heroHand.push(...drawCards(usedCard.draw));
+                if (resolved) {
+                    if (card.type === 'attack') {
+                        // resolveCard already spent energy
+                    }
+                    if (handIndex >= 0) {
+                        const [used] = this.heroHand.splice(handIndex, 1);
+                        if (used) {
+                            this.heroDiscardPile.push(used.id);
+                        }
+                    }
+                    this.turnState.heroActed = true;
+                    this.fillHand();
+                    if (this.monsters.every(m => m.hp <= 0)) {
+                        this.finishCombat('victory');
                     }
                 }
 
-                fillHand();
-                updateCombatDisplay();
-            }
-        }
-
-        function fillHand() {
-            while (heroHand.length < 5) {
-                const drawn = drawCards(1);
-                if (drawn.length === 0) break;
-                heroHand.push(...drawn);
-            }
-        }
-
-        function updatePileDisplays() {
-            drawCountEl.textContent = heroDrawPile.length;
-            discardCountEl.textContent = heroDiscardPile.length;
-            exhaustCountEl.textContent = heroExhaustPile.length;
-
-            if (!showPileCardsCheckbox.checked) return;
-
-            const drawCards = heroDrawPile.map(resolveCard).filter(Boolean);
-            const discardCards = heroDiscardPile.map(resolveCard).filter(Boolean);
-            const exhaustCards = heroExhaustPile.map(resolveCard).filter(Boolean);
-
-            renderPileList(drawListEl, drawCards, 'reversed');
-            renderPileList(discardListEl, discardCards);
-            renderPileList(exhaustListEl, exhaustCards);
-        }
-
-        function renderPileList(container, cards, order = 'normal') {
-            container.innerHTML = '';
-            const entries = order === 'reversed' ? [...cards].reverse() : cards;
-
-            if (entries.length === 0) {
-                container.innerHTML = '<div class="pile-entry">Empty</div>';
-                return;
+                this.renderAll();
             }
 
-            entries.forEach(card => {
-                const row = document.createElement('div');
-                row.className = 'pile-entry';
-                row.textContent = `${card.name || card.id} (${card.type})`;
-                container.appendChild(row);
-            });
-        }
-
-        function prepareHero(hero) {
-            const prepared = {
-                ...hero,
-                stats: { ...hero.stats },
-                maxStats: { ...hero.maxStats },
-                currentStats: { ...hero.currentStats },
-                energy: hero.maxEnergy,
-                maxEnergy: hero.maxEnergy,
-                deck: Array.isArray(hero.deck) ? hero.deck.slice() : []
-            };
-
-            if (!prepared.name) {
-                prepared.name = prepared.id || 'Hero';
-            }
-
-            if (!prepared.currentStats) {
-                prepared.currentStats = { ...prepared.stats };
-            }
-
-            prepared.currentStats.def = prepared.currentStats.def ?? prepared.stats.def;
-            prepared.currentStats.hp = prepared.currentStats.hp ?? prepared.stats.hp;
-
-            return prepared;
-        }
-
-        function prepareMonster(monster) {
-            return {
-                ...monster,
-                stats: { ...monster.stats },
-                abilities: monster.abilities ? monster.abilities.map(ability => ({ ...ability })) : []
-            };
-        }
-
-        function drawCards(count = 1) {
-            const cards = [];
-
-            for (let i = 0; i < count; i++) {
-                if (heroDrawPile.length === 0) {
-                    if (heroDiscardPile.length === 0) break;
-                    heroDrawPile = shuffle(heroDiscardPile.slice());
-                    heroDiscardPile = [];
+            finishCombat(result) {
+                if (!result) {
+                    result = this.monsters.every(m => m.hp <= 0) ? 'victory' : this.hero && this.hero.hp <= 0 ? 'defeat' : 'unknown';
                 }
 
-                const entry = heroDrawPile.shift();
-                const card = resolveCard(entry);
-                if (card) cards.push({ ...card });
+                this.turnState = null;
+                this.startBtn.disabled = false;
+                this.endTurnBtn.disabled = true;
+                this.statusEl.textContent = result === 'victory' ? 'Victory! Combat completed.' : 'Defeat! Hero has fallen.';
+                this.log(result === 'victory' ? 'Victory! The enemies fall.' : 'Defeat... The hero collapses.');
             }
 
-            return cards;
-        }
-
-        function resolveCard(entry) {
-            if (!entry) return null;
-            if (typeof entry === 'object' && entry.cost !== undefined) {
-                return { ...entry };
+            renderAll() {
+                this.renderStats();
+                this.renderDice();
+                this.renderMonsters();
+                this.renderLog();
+                this.updateHandDisplay();
+                this.updatePileDisplays();
             }
-            const base = cardMap.get(entry);
-            return base ? { ...base } : null;
-        }
 
-        function applyDiceEffect(element) {
-            switch (element) {
-                case 'fire':
-                    combatSystem.log('🔥 Fire charge ignites your next attack (+3 damage).');
-                    break;
-                case 'water':
-                    combatSystem.hero.currentStats.hp = Math.min(combatSystem.hero.maxStats.hp, combatSystem.hero.currentStats.hp + 4);
-                    combatSystem.log('💧 Water flow restores 4 HP.');
-                    break;
-                case 'earth':
-                    combatSystem.hero.currentStats.def += 3;
-                    combatSystem.log('🌱 Earth skin grants +3 defense.');
-                    break;
-                case 'air':
-                    combatSystem.hero.energy = Math.min(combatSystem.hero.maxEnergy, combatSystem.hero.energy + 1);
-                    combatSystem.log('💨 Air gust grants +1 energy.');
-                    break;
-                case 'light':
-                    combatSystem.log('✨ Light readies your next card (cost -1).');
-                    break;
-                case 'shadow':
-                    combatSystem.log('🌑 Shadow veils an enemy (-2 attack next turn).');
-                    weakenRandomMonster(2);
-                    break;
+            renderStats() {
+                if (!this.hero) {
+                    this.heroHpEl.textContent = '-';
+                    this.heroEnergyEl.textContent = '-';
+                    this.heroDefenseEl.textContent = '-';
+                    return;
+                }
+
+                this.heroHpEl.textContent = `${this.hero.hp}/${this.hero.maxHp}`;
+                this.heroEnergyEl.textContent = `${this.hero.energy}/${this.hero.maxEnergy}`;
+                const wardText = this.turnState ? ` (+${this.turnState.heroShield} ward)` : '';
+                this.heroDefenseEl.textContent = `${this.hero.def}${wardText}`;
             }
-            updateCombatDisplay();
-        }
 
-        function logDice(message) {
-            diceLogEl.textContent = message;
-        }
+            renderMonsters() {
+                this.monsterListEl.innerHTML = '';
+                if (!this.monsters || this.monsters.length === 0) return;
 
-        function applyDiceToCard(card) {
-            if (pendingDiceElements.length === 0) return card;
+                const ward = this.turnState ? this.turnState.monsterShield : 0;
+                this.monsters.forEach(monster => {
+                    const el = document.createElement('div');
+                    el.className = 'monster-item';
+                    const intentText = monster.hp > 0 ? `${monster.intent.name} (${monster.intent.element})` : 'Defeated';
+                    el.innerHTML = `
+                        <div class="monster-info">
+                            <strong>${monster.name}</strong><br>
+                            <span class="monster-hp">HP: ${monster.hp}/${monster.maxHp}</span><br>
+                            <span class="monster-hp">Ward: ${ward}</span>
+                        </div>
+                        <div class="monster-intent">${intentText}</div>
+                    `;
+                    this.monsterListEl.appendChild(el);
+                });
+            }
 
-            let modified = { ...card };
-            pendingDiceElements.forEach(element => {
-                switch (element) {
-                    case 'fire':
-                        if (modified.type === 'attack') {
-                            modified.damage = (modified.damage || 0) + 3;
-                        }
-                        break;
-                    case 'light':
-                        modified.cost = Math.max(0, (modified.cost ?? 0) - 1);
-                        break;
-                    case 'earth':
-                        if (modified.type === 'defense') {
-                            modified.defense = (modified.defense || 0) + 3;
-                        }
-                        break;
-                    case 'shadow':
-                        if (modified.type === 'attack') {
-                            modified.description = `${modified.description || ''} (applies weaken)`;
-                        }
-                        break;
+            renderLog() {
+                this.combatLogEl.innerHTML = '';
+                const recent = this.logEntries.slice(-14);
+                recent.forEach(entry => {
+                    const div = document.createElement('div');
+                    div.className = 'log-entry';
+                    div.textContent = entry;
+                    this.combatLogEl.appendChild(div);
+                });
+                this.combatLogEl.scrollTop = this.combatLogEl.scrollHeight;
+            }
+
+            renderDice() {
+                if (!this.turnState) {
+                    this.clearDiceDisplay();
+                    return;
+                }
+
+                this.heroDiceValuesEl.textContent = `[${this.turnState.heroDiceOriginal.join(', ')}]`;
+                this.monsterDiceValuesEl.textContent = `[${this.turnState.monsterDiceOriginal.join(', ')}]`;
+
+                this.heroDicePatternEl.textContent = this.describePattern(this.turnState.heroPatternContext);
+                this.monsterDicePatternEl.textContent = this.describePattern(this.turnState.monsterPatternContext);
+
+                const shieldInfo = `Hero ward ${this.turnState.heroShield} • Monster ward ${this.turnState.monsterShield}`;
+                this.clashSummaryEl.textContent = `${this.turnState.clashOutcome.summary} | ${shieldInfo}`;
+                this.diceLogEl.textContent = `Initiative: ${this.turnState.clashOutcome.initiative.toUpperCase()} • Multipliers H ${this.turnState.clashOutcome.heroMultiplier.toFixed(2)} / M ${this.turnState.clashOutcome.monsterMultiplier.toFixed(2)}`;
+            }
+
+            describePattern(context) {
+                if (!context) return 'No roll';
+                switch (context.pattern) {
+                    case 'triple':
+                        return `Triple ${context.tripleElement?.toUpperCase() || '?'} (+${context.tripleBonus || 0})`;
+                    case 'pair':
+                        return `Pair of ${context.pairElement?.toUpperCase() || '?'} (+${context.pairBonus || 0})`;
+                    case 'distinct':
+                        return 'All distinct (+1 energy)';
                     default:
-                        break;
+                        return `${context.pattern}`;
                 }
-            });
-
-            pendingDiceElements = [];
-            return modified;
-        }
-
-        function weakenRandomMonster(amount) {
-            const alive = combatSystem.monsters.filter(m => m.currentHP > 0);
-            if (alive.length === 0) return;
-            const target = alive[Math.floor(Math.random() * alive.length)];
-            target.stats.atk = Math.max(1, target.stats.atk - amount);
-            combatSystem.log(`${target.name} weakens (-${amount} ATK).`);
-        }
-
-        function shuffle(array) {
-            const copy = array.slice();
-            for (let i = copy.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [copy[i], copy[j]] = [copy[j], copy[i]];
             }
-            return copy;
+
+            clearDiceDisplay() {
+                this.heroDiceValuesEl.textContent = '-';
+                this.heroDicePatternEl.textContent = 'Roll to begin';
+                this.monsterDiceValuesEl.textContent = '-';
+                this.monsterDicePatternEl.textContent = 'Roll to begin';
+                this.clashSummaryEl.textContent = 'Clash summary appears here.';
+                this.diceLogEl.textContent = 'Rolls appear here.';
+            }
+
+            updateHandDisplay() {
+                this.heroHandEl.innerHTML = '';
+                if (!this.heroHand || this.heroHand.length === 0) return;
+
+                this.heroHand.forEach((card, index) => {
+                    const cardCost = card.energyCost ?? card.cost ?? 0;
+                    const disabled = !this.turnState || !this.turnState.active || this.hero.energy < cardCost;
+                    const cardEl = document.createElement('div');
+                    cardEl.className = `card ${disabled ? 'disabled' : ''}`;
+                    cardEl.innerHTML = `
+                        <div class="card-cost">${cardCost}</div>
+                        <strong>${card.name}</strong><br>
+                        <small>${card.description || ''}</small><br>
+                        <small>Type: ${card.type}</small>
+                    `;
+                    if (!disabled) {
+                        cardEl.onclick = () => this.playHeroCard(card, index);
+                    }
+                    this.heroHandEl.appendChild(cardEl);
+                });
+            }
+
+            updatePileDisplays() {
+                this.drawCountEl.textContent = this.heroDrawPile.length;
+                this.discardCountEl.textContent = this.heroDiscardPile.length;
+                this.exhaustCountEl.textContent = this.heroExhaustPile.length;
+
+                if (!this.showPileCardsCheckbox.checked) return;
+
+                const drawCards = this.heroDrawPile.map(id => this.resolveCardId(id)).filter(Boolean);
+                const discardCards = this.heroDiscardPile.map(id => this.resolveCardId(id)).filter(Boolean);
+                const exhaustCards = this.heroExhaustPile.map(id => this.resolveCardId(id)).filter(Boolean);
+
+                this.renderPileList(this.drawListEl, drawCards, true);
+                this.renderPileList(this.discardListEl, discardCards, false);
+                this.renderPileList(this.exhaustListEl, exhaustCards, false);
+            }
+
+            renderPileList(container, cards, reverse = false) {
+                container.innerHTML = '';
+                const entries = reverse ? [...cards].reverse() : cards;
+                if (entries.length === 0) {
+                    container.innerHTML = '<div class="pile-entry">Empty</div>';
+                    return;
+                }
+                entries.forEach(card => {
+                    const row = document.createElement('div');
+                    row.className = 'pile-entry';
+                    row.textContent = `${card.name} (cost ${card.energyCost})`;
+                    container.appendChild(row);
+                });
+            }
+
+            log(message) {
+                this.logEntries.push(message);
+            }
+
+            drawCards(count = 1) {
+                const cards = [];
+                for (let i = 0; i < count; i += 1) {
+                    if (this.heroDrawPile.length === 0) {
+                        if (this.heroDiscardPile.length === 0) break;
+                        this.heroDrawPile = this.shuffle(this.heroDiscardPile.slice());
+                        this.heroDiscardPile = [];
+                    }
+                    const id = this.heroDrawPile.shift();
+                    const card = this.resolveCardId(id);
+                    if (card) cards.push({ ...card });
+                }
+                return cards;
+            }
+
+            fillHand() {
+                while (this.heroHand.length < 5) {
+                    const drawn = this.drawCards(1);
+                    if (drawn.length === 0) break;
+                    this.heroHand.push(...drawn);
+                }
+            }
+
+            resolveCardId(id) {
+                const base = cardMap.get(id);
+                return base ? { ...base } : null;
+            }
+
+            updateOutOfCombatDisplay() {
+                if (!this.currentRun) return;
+                const hero = this.currentRun.hero;
+                this.heroHpEl.textContent = `${hero.stats.hp}/${hero.maxStats.hp}`;
+                this.heroEnergyEl.textContent = `${hero.energy}/${hero.maxEnergy}`;
+                this.heroDefenseEl.textContent = hero.stats.def;
+            }
+
+            createMockRun() {
+                const heroBaseStats = { hp: 45, def: 2, maxEnergy: 3 };
+                const hero = {
+                    id: 'h_nomad',
+                    name: 'Nomad Windwalker',
+                    stats: { hp: heroBaseStats.hp, def: heroBaseStats.def },
+                    maxStats: { hp: heroBaseStats.hp, def: heroBaseStats.def },
+                    energy: heroBaseStats.maxEnergy,
+                    maxEnergy: heroBaseStats.maxEnergy,
+                    deck: [
+                        'c_strike', 'c_strike', 'c_strike',
+                        'c_guard', 'c_guard',
+                        'c_focus', 'c_cyclone', 'c_lantern'
+                    ]
+                };
+
+                const monsters = [
+                    {
+                        id: 'm_mirage_jackal',
+                        name: 'Mirage Jackal',
+                        stats: { hp: 28, atk: 7, def: 1 },
+                        intent: { type: 'attack', element: 'air', value: 8, name: 'Gust Swipe' }
+                    },
+                    {
+                        id: 'm_sand_wraith',
+                        name: 'Sand Wraith',
+                        stats: { hp: 24, atk: 6, def: 2 },
+                        intent: { type: 'attack', element: 'earth', value: 7, name: 'Burrow Crush' }
+                    },
+                    {
+                        id: 'm_dust_serpent',
+                        name: 'Dust Serpent',
+                        stats: { hp: 26, atk: 6, def: 1 },
+                        intent: { type: 'attack', element: 'fire', value: 9, name: 'Pyre Lash' }
+                    }
+                ];
+
+                return {
+                    hero,
+                    dungeon: {
+                        allRooms: [
+                            {
+                                id: 'mock_battle_room',
+                                type: 'battle',
+                                tarot: 'The Magician',
+                                monsters
+                            }
+                        ]
+                    }
+                };
+            }
+
+            prepareHero(hero) {
+                return {
+                    name: hero.name || 'Hero',
+                    hp: hero.stats.hp,
+                    maxHp: hero.stats.hp,
+                    def: hero.stats.def,
+                    energy: hero.maxEnergy,
+                    maxEnergy: hero.maxEnergy,
+                    elementAffinity: 'earth',
+                    deck: Array.isArray(hero.deck) ? hero.deck.slice() : []
+                };
+            }
+
+            prepareMonster(monster) {
+                return {
+                    id: monster.id,
+                    name: monster.name,
+                    hp: monster.stats.hp,
+                    maxHp: monster.stats.hp,
+                    def: monster.stats.def || 0,
+                    atk: monster.stats.atk || 0,
+                    elementAffinity: ELEMENT_AFFINITIES[monster.id] || 'air',
+                    maxEnergy: 2,
+                    energy: 2,
+                    intent: { ...monster.intent }
+                };
+            }
+
+            shuffle(array) {
+                const copy = array.slice();
+                for (let i = copy.length - 1; i > 0; i -= 1) {
+                    const j = Math.floor(this.rng.next() * (i + 1));
+                    [copy[i], copy[j]] = [copy[j], copy[i]];
+                }
+                return copy;
+            }
         }
 
-        console.log('⚔️ Combat System Demo ready (offline mode).');
-        console.log('🎭 Click "Generate New Run" to begin.');
+        const demo = new ElementalCombatDemo();
+        demo.init();
     </script>
 </body>
 </html>
